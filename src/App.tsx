@@ -12,6 +12,7 @@ function App() {
 					SLAVA UKRAINI
 				</a>
 				<button>Click</button>
+        <span>My cool text</span>
 			</div>
 		</>
 	);
