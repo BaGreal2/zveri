@@ -11,6 +11,7 @@ function App() {
 				>
 					SLAVA UKRAINI
 				</a>
+				<button>Click</button>
 			</div>
 		</>
 	);
