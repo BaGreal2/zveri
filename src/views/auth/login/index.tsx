@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { Link, Navigate } from 'react-router';
+import { Link } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import {
@@ -21,15 +21,11 @@ const loginFormSchema = z.object({
 type LoginFormData = z.infer<typeof loginFormSchema>;
 
 const Login = () => {
-	const { isAuthenticated, setUser } = useAuthStore();
+	const { setUser } = useAuthStore();
 	const form = useForm<LoginFormData>({
 		resolver: zodResolver(loginFormSchema)
 	});
 	const { control, handleSubmit } = form;
-
-	if (isAuthenticated) {
-		return <Navigate to="/home" replace />;
-	}
 
 	const onSubmit = (data: LoginFormData) => {
 		setUser({
@@ -55,7 +51,7 @@ const Login = () => {
 						name="email"
 						render={({ field }) => (
 							<FormItem className="w-full">
-								<FormLabel>Username</FormLabel>
+								<FormLabel>Email</FormLabel>
 								<FormControl>
 									<Input placeholder="Email" {...field} />
 								</FormControl>

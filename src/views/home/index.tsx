@@ -1,15 +1,10 @@
-import { Navigate } from 'react-router';
 import useAuthStore from '@/lib/store/auth';
 
 const Home = () => {
-	const { isAuthenticated, removeUser } = useAuthStore();
-
-	if (!isAuthenticated) {
-		return <Navigate to="/login" replace />;
-	}
+	const { setUser } = useAuthStore();
 
 	const handleLogout = () => {
-		removeUser();
+		setUser(null);
 	};
 
 	return (

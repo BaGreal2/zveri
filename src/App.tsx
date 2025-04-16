@@ -1,21 +1,28 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 import Loading from '@/components/loading/index.tsx';
-
-const LoginComponent = React.lazy(() => import('./views/auth/login/index.tsx'));
-const RegisterComponent = React.lazy(
-	() => import('./views/auth/register/index.tsx')
-);
-const HomeComponent = React.lazy(() => import('./views/home/index.tsx'));
+import PrivateRoute from '@/components/route-gates/private-route';
+import PublicRoute from '@/components/route-gates/public-route';
+import routes from '@/lib/router';
 
 const App = () => {
 	return (
 		<BrowserRouter>
 			<Suspense fallback={<Loading />}>
 				<Routes>
-					<Route path="/home" element={<HomeComponent />} />
-					<Route path="/login" element={<LoginComponent />} />
-					<Route path="/register" element={<RegisterComponent />} />
+					{routes.map(({ type, path, element }) => (
+						<Route
+							key={path}
+							path={path}
+							element={
+								type === 'public' ? (
+									<PublicRoute element={element} />
+								) : (
+									<PrivateRoute element={element} />
+								)
+							}
+						/>
+					))}
 					<Route path="*" element={<Navigate to="/home" />} />
 				</Routes>
 			</Suspense>
