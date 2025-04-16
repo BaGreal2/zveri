@@ -1,5 +1,5 @@
-import useAuthStore from '@/store/auth';
 import { Navigate } from 'react-router';
+import useAuthStore from '@/lib/store/auth';
 
 const Home = () => {
 	const { isAuthenticated, logout } = useAuthStore();
@@ -8,16 +8,15 @@ const Home = () => {
 		return <Navigate to="/login" replace />;
 	}
 
-  const handleLogout = () => {
-    logout();
-  }
+	const handleLogout = () => {
+		logout();
+	};
 
 	return (
 		<div>
 			Home
-
 			<button
-				className="bg-green-400 rounded-md text-white cursor-pointer py-2 px-4 flex justify-center items-center"
+				className="flex cursor-pointer items-center justify-center rounded-md bg-green-400 px-4 py-2 text-white"
 				onClick={handleLogout}
 			>
 				Logout
