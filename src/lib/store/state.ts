@@ -1,8 +1,8 @@
-import { User } from '@/types/auth';
+import type { User } from '@/types/auth';
 
 export interface AuthState {
 	isAuthenticated: boolean;
 	user: User | null;
-	login: (user: User) => void;
-	logout: () => void;
+  setUser: (user: User) => void;
+  removeUser: () => void;
 }
