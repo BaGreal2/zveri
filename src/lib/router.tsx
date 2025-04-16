@@ -7,25 +7,25 @@ const RegisterPage = React.lazy(
 const HomePage = React.lazy(() => import('../views/home/index.tsx'));
 
 interface Route {
-  path: string;
-  element: React.ReactNode;
-  type: 'public' | 'private';
+	path: string;
+	element: React.ReactNode;
+	type: 'public' | 'private';
 }
 
 const routes: Route[] = [
 	{
 		path: '/home',
-    type: 'private',
+		type: 'private',
 		element: <HomePage />
 	},
 	{
 		path: '/login',
-    type: 'public',
+		type: 'public',
 		element: <LoginPage />
 	},
 	{
 		path: '/register',
-    type: 'public',
+		type: 'public',
 		element: <RegisterPage />
 	}
 ];
