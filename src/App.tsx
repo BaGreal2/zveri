@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter, Navigate, Route, Routes, href } from 'react-router';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 import Loading from '@/components/loading/index.tsx';
 
 const LoginComponent = React.lazy(() => import('./views/auth/login/index.tsx'));

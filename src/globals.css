@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --font-display: "Funnel Sans", sans-serif;
-  --color-background: #181818;
-  --color-foreground: #f8f8f2;
+	--font-display: 'Funnel Sans', sans-serif;
+	--color-background: #181818;
+	--color-foreground: #f8f8f2;
 }
 
 body {
-  font-family: var(--font-display);
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+	font-family: var(--font-display);
+	background-color: var(--color-background);
+	color: var(--color-foreground);
 }

@@ -12,7 +12,7 @@ export default defineConfig([
 			globals: globals.browser
 		},
 		plugins: { js },
-		extends: ['js/recommended'],
+		extends: ['js/recommended']
 	},
 	tseslint.configs.recommended,
 	pluginReact.configs.flat.recommended,
@@ -26,7 +26,7 @@ export default defineConfig([
 					disallowTypeAnnotations: false
 				}
 			],
-			semi: 'warn'
+			semi: 'error'
 		}
 	}
 ]);

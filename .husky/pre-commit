@@ -1,3 +1,2 @@
+bunx prettier --write .
 bun lint
-
-exit 1
