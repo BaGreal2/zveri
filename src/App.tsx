@@ -1,20 +1,28 @@
-function App() {
+import React, { Suspense } from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
+
+const LoginComponent = React.lazy(() => import('./views/auth/login/index.tsx'));
+const RegisterComponent = React.lazy(
+	() => import('./views/auth/register/index.tsx')
+);
+const HomeComponent = React.lazy(() => import('./views/home/index.tsx'));
+const AuthLayoutComponent = React.lazy(() => import('./views/auth/Layout.tsx'));
+
+const App = () => {
 	return (
-		<>
-			<div className="flex h-screen w-screen flex-col">
-				<div className="h-1/2 bg-blue-500 w-full" />
-				<div className="h-1/2 bg-yellow-400 w-full" />
-				<a
-					href="https://www.youtube.com/watch?v=6lYkQ0O5oSM"
-					target="_blank"
-					className="text-white font-bold absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl py-3 px-5 backdrop-blur-md rounded-md shadow-lg active:shadow-xs active:-translate-x-[49%] active:-translate-y-[49%] transition-all duration-150 cursor-pointer"
-				>
-					SLAVA UKRAINI
-				</a>
-				<button>Click</button>
-			</div>
-		</>
+		<BrowserRouter>
+			<Suspense fallback={<div>Loading...</div>}>
+				<Routes>
+					<Route path="/home" element={<HomeComponent />} />
+					<Route element={<AuthLayoutComponent />}>
+						<Route path="/login" element={<LoginComponent />} />
+						<Route path="/register" element={<RegisterComponent />} />
+					</Route>
+					<Route path="*" element={<Navigate to="/home" />} />
+				</Routes>
+			</Suspense>
+		</BrowserRouter>
 	);
-}
+};
 
 export default App;

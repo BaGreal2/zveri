@@ -1,5 +1,5 @@
-import useAuthStore from '@/store/auth';
 import { Link } from 'react-router';
+import useAuthStore from '@/lib/store/auth';
 
 const Login = () => {
 	const { login } = useAuthStore();
@@ -18,13 +18,13 @@ const Login = () => {
 	return (
 		<div>
 			<button
-				className="bg-green-400 rounded-md text-white cursor-pointer py-2 px-4 flex justify-center items-center"
+				className="flex cursor-pointer items-center justify-center rounded-md bg-green-400 px-4 py-2 text-white"
 				onClick={handleLogin}
 			>
 				Login
 			</button>
 			<Link to="/register">
-				<button className="bg-blue-400 rounded-md text-white cursor-pointer py-2 px-4 flex justify-center items-center">
+				<button className="flex cursor-pointer items-center justify-center rounded-md bg-blue-400 px-4 py-2 text-white">
 					Register
 				</button>
 			</Link>
