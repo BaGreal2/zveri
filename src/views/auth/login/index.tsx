@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import useAuthStore from '@/lib/store/auth';
 
 const loginFormSchema = z.object({
-	email: z.string().email('Invalid email address'),
+	email: z.string().email('cho ugodno'),
 	password: z.string().min(6, 'Password must be at least 6 characters long')
 });
 
