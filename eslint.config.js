@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import pluginQuery from '@tanstack/eslint-plugin-query';
 import pluginReact from 'eslint-plugin-react';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
@@ -15,6 +16,7 @@ export default defineConfig([
 		extends: ['js/recommended']
 	},
 	tseslint.configs.recommended,
+	pluginQuery.configs['flat/recommended'],
 	pluginReact.configs.flat.recommended,
 	{
 		rules: {

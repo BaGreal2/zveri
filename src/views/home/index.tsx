@@ -1,15 +1,42 @@
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import { NavLink } from 'react-router';
+import { useQuery } from '@tanstack/react-query';
 import useAuthStore from '@/lib/store/auth';
+import { getTMDBImageUrl } from '@/lib/utils';
+import getTopRatedSeries from './actions/get-top-rated-series';
 
 const Home = () => {
 	const { setUser } = useAuthStore();
+	const query = useQuery({
+		queryKey: ['todos'],
+		queryFn: () => getTopRatedSeries()
+	});
 
 	const handleLogout = () => {
 		setUser(null);
 	};
 
 	return (
-		<div>
-			Home
+		<div className="overflow-x-hidden pt-12">
+			<PerfectScrollbar>
+				<ul className="flex gap-5 overflow-auto px-4">
+					{query.data?.results.map((series) => (
+						<li key={series.id}>
+							<NavLink to={`/series/${series.id}`}>
+								<div className="h-96 w-52">
+									<img
+										src={getTMDBImageUrl(series.poster_path, 'w200')}
+										className="h-auto w-full"
+									/>
+									<span className="text-lg font-bold">
+										{series.original_name}
+									</span>
+								</div>
+							</NavLink>
+						</li>
+					))}
+				</ul>
+			</PerfectScrollbar>
 			<button
 				className="flex cursor-pointer items-center justify-center rounded-md bg-green-400 px-4 py-2 text-white"
 				onClick={handleLogout}
