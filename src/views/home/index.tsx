@@ -17,7 +17,7 @@ const Home = () => {
 	};
 
 	return (
-		<div className="overflow-x-hidden pt-12">
+		<div className="overflow-x-hidden pt-32">
 			<PerfectScrollbar>
 				<ul className="flex gap-5 overflow-auto px-4">
 					{query.data?.results.map((series) => (
@@ -29,7 +29,7 @@ const Home = () => {
 										className="h-auto w-full"
 									/>
 									<span className="text-lg font-bold">
-										{series.original_name}
+										{series.name}
 									</span>
 								</div>
 							</NavLink>

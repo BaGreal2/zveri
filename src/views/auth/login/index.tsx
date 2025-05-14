@@ -39,7 +39,7 @@ const Login = () => {
 	};
 
 	return (
-		<div className="flex min-h-screen items-center justify-center">
+		<div className="my-auto flex h-full items-center justify-center">
 			<Form {...form}>
 				<form
 					className="flex w-96 flex-col items-center gap-2 rounded-md border border-gray-300 px-4 py-6 shadow-md"
