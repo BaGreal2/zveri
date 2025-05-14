@@ -4,6 +4,7 @@ const LoginPage = React.lazy(() => import('../views/auth/login/index.tsx'));
 const RegisterPage = React.lazy(
 	() => import('../views/auth/register/index.tsx')
 );
+const ProfilePage = React.lazy(() => import('../views/profile/index.tsx'));
 const HomePage = React.lazy(() => import('../views/home/index.tsx'));
 const SeriesDetailsPage = React.lazy(
 	() => import('../views/series-details/index.tsx')
@@ -30,6 +31,11 @@ const routes: Route[] = [
 		path: '/register',
 		type: 'public',
 		element: <RegisterPage />
+	},
+	{
+		path: '/profile',
+		type: 'private',
+		element: <ProfilePage />
 	},
 	{
 		path: '/series/:seriesId',

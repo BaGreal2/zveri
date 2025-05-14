@@ -7,6 +7,9 @@ const Header = () => {
 				<NavLink to="/home" className="px-3 py-2 text-2xl font-black">
 					Logo
 				</NavLink>
+				<NavLink to="/profile">
+					<h1 className="text-lg font-bold">Account</h1>
+				</NavLink>
 			</div>
 		</div>
 	);
