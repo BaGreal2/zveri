@@ -1,21 +1,25 @@
 import clsx, { type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { TMDB_API_TOKEN } from './constants';
+import { BACKEND_URL } from './constants';
+import useAuthStore from './store/auth';
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(...inputs));
 
 export const fetcher = async (url: string, customOptions?: RequestInit) => {
+	const token = useAuthStore.getState().token;
+  console.log('sending token', token);
 	const defaultOptions = {
 		method: 'GET',
 		headers: {
 			accept: 'application/json',
-			Authorization: `Bearer ${TMDB_API_TOKEN}`
+			...(token ? { Authorization: `Bearer ${token}` } : {})
 		}
 	};
 	const options = { ...defaultOptions, ...customOptions };
 
-	const res = await fetch(url, options);
+	const res = await fetch(BACKEND_URL + url, options);
 
+	console.log('fetch', res);
 	if (!res.ok) {
 		throw new Error('Network response was not ok');
 	}
@@ -24,8 +28,8 @@ export const fetcher = async (url: string, customOptions?: RequestInit) => {
 };
 
 export const getTMDBImageUrl = (path: string, size: string) => {
-  const baseUrl = 'https://image.tmdb.org/t/p/';
-  const imageUrl = `${baseUrl}${size}${path}`;
+	const baseUrl = 'https://image.tmdb.org/t/p/';
+	const imageUrl = `${baseUrl}${size}${path}`;
 
-  return imageUrl;
+	return imageUrl;
 };

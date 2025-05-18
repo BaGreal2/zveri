@@ -1,9 +1,7 @@
 import { fetcher } from '@/lib/utils';
 
 const getTopRatedSeries = async (page: number = 1) => {
-	const url = `https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=${page}`;
-
-	const response = await fetcher(url);
+	const response = await fetcher(`/series/top_rated?page=${page}`);
 
 	return response;
 };

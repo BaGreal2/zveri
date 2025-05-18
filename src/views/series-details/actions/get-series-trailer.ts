@@ -1,11 +1,9 @@
 import { fetcher } from '@/lib/utils';
 
-const getSeriesDetails = async (seriesId: string) => {
-	const url = `https://api.themoviedb.org/3/tv/${seriesId}/videos?language=en-US`;
-
-	const response = await fetcher(url);
+const getSeriesTrailers = async (seriesId: string) => {
+	const response = await fetcher(`/series/${seriesId}/videos`);
 
 	return response;
 };
 
-export default getSeriesDetails;
+export default getSeriesTrailers;

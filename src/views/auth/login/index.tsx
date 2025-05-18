@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { z } from 'zod';
 import {
 	Form,
@@ -12,30 +13,45 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import useAuthStore from '@/lib/store/auth';
+import login from './actions/login';
 
 const loginFormSchema = z.object({
-	email: z.string().email('Invalid email address'),
+	identifier: z
+		.string()
+		.min(4, 'Identifier must be at least 4 characters long'),
 	password: z.string().min(6, 'Password must be at least 6 characters long')
 });
 
-type LoginFormData = z.infer<typeof loginFormSchema>;
+export type LoginFormData = z.infer<typeof loginFormSchema>;
 
 const Login = () => {
-	const { setUser } = useAuthStore();
+	const { setUser, setToken } = useAuthStore();
 	const form = useForm<LoginFormData>({
 		resolver: zodResolver(loginFormSchema)
 	});
 	const { control, handleSubmit } = form;
 
+	const { mutate, error, isError } = useMutation({
+		mutationFn: login,
+		onSuccess: (data) => {
+			console.log('Data received:', data);
+			setUser({
+				email: data.user.email,
+				password: data.user.password,
+				name: data.user.name,
+				id: data.user.id,
+				createdAt: new Date(data.user.createdAt),
+				updatedAt: new Date(data.user.updatedAt)
+			});
+			setToken(data.token);
+		},
+		onError: (error) => {
+			console.error('Registration failed:', error);
+		}
+	});
+
 	const onSubmit = (data: LoginFormData) => {
-		setUser({
-			email: data.email,
-			password: data.password,
-			name: 'John Doe',
-			id: 1,
-			createdAt: new Date(),
-			updatedAt: new Date()
-		});
+		mutate(data);
 	};
 
 	return (
@@ -48,12 +64,12 @@ const Login = () => {
 					<h1 className="text-2xl font-bold">Login</h1>
 					<FormField
 						control={control}
-						name="email"
+						name="identifier"
 						render={({ field }) => (
 							<FormItem className="w-full">
-								<FormLabel>Email</FormLabel>
+								<FormLabel>Email or Username</FormLabel>
 								<FormControl>
-									<Input placeholder="Email" {...field} />
+									<Input placeholder="igorkrutoy@gmail.com" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -73,6 +89,12 @@ const Login = () => {
 							</FormItem>
 						)}
 					/>
+
+					{isError && (
+						<div className="w-full text-red-500">
+							{error instanceof Error ? error.message : 'An error occurred'}
+						</div>
+					)}
 
 					<button
 						type="submit"
