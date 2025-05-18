@@ -6,7 +6,7 @@ import { getTMDBImageUrl } from '@/lib/utils';
 import getTopRatedSeries from './actions/get-top-rated-series';
 
 const Home = () => {
-	const { setUser } = useAuthStore();
+	const { setUser, setToken } = useAuthStore();
 	const query = useQuery({
 		queryKey: ['todos'],
 		queryFn: () => getTopRatedSeries()
@@ -14,6 +14,7 @@ const Home = () => {
 
 	const handleLogout = () => {
 		setUser(null);
+		setToken(null);
 	};
 
 	return (
@@ -28,9 +29,7 @@ const Home = () => {
 										src={getTMDBImageUrl(series.poster_path, 'w200')}
 										className="h-auto w-full"
 									/>
-									<span className="text-lg font-bold">
-										{series.name}
-									</span>
+									<span className="text-lg font-bold">{series.name}</span>
 								</div>
 							</NavLink>
 						</li>

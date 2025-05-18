@@ -36,12 +36,11 @@ const Login = () => {
 		onSuccess: (data) => {
 			console.log('Data received:', data);
 			setUser({
+				username: data.user.username,
 				email: data.user.email,
-				password: data.user.password,
-				name: data.user.name,
 				id: data.user.id,
-				createdAt: new Date(data.user.createdAt),
-				updatedAt: new Date(data.user.updatedAt)
+				createdAt: new Date(data.user.created_at),
+				updatedAt: new Date(data.user.updated_at)
 			});
 			setToken(data.token);
 		},
