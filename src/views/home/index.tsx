@@ -8,7 +8,7 @@ import getTopRatedSeries from './actions/get-top-rated-series';
 const Home = () => {
 	const { setUser, setToken } = useAuthStore();
 	const query = useQuery({
-		queryKey: ['todos'],
+		queryKey: ['top-rated'],
 		queryFn: () => getTopRatedSeries()
 	});
 

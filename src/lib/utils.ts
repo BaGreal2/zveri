@@ -1,13 +1,12 @@
 import clsx, { type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { BACKEND_URL } from './constants';
+import { BACKEND_URL, TMDB_API_TOKEN } from './constants';
 import useAuthStore from './store/auth';
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(...inputs));
 
 export const fetcher = async (url: string, customOptions?: RequestInit) => {
 	const token = useAuthStore.getState().token;
-  console.log('sending token', token);
 	const defaultOptions = {
 		method: 'GET',
 		headers: {
@@ -24,6 +23,27 @@ export const fetcher = async (url: string, customOptions?: RequestInit) => {
 		throw new Error('Network response was not ok');
 	}
 
+	return res.json();
+};
+
+export const tmdbFetcher = async (url: string, customOptions?: RequestInit) => {
+	if (!TMDB_API_TOKEN) {
+		throw new Error('VITE_TMDB_API_TOKEN is not defined in .env file');
+	}
+
+	const defaultOptions = {
+		method: 'GET',
+		headers: {
+			accept: 'application/json',
+			Authorization: `Bearer ${TMDB_API_TOKEN}`
+		}
+	};
+	const options = { ...defaultOptions, ...customOptions };
+
+	const res = await fetch(url, options);
+	if (!res.ok) {
+		throw new Error('Network response was not ok');
+	}
 	return res.json();
 };
 
