@@ -42,22 +42,34 @@ const SeriesDetails = () => {
 
 	return (
 		<div className="pt-44">
-			<div className="fixed top-0 left-0 size-full h-screen overflow-hidden">
-				<img
-					src={getTMDBImageUrl(query.data?.backdrop_path, 'original')}
-					className="size-full object-cover opacity-75 blur-xs"
-				/>
+			<div className="fixed top-0 left-0 z-0 h-screen w-full overflow-hidden">
+				<div className="absolute top-0 left-0 z-0 h-4/5 w-full overflow-hidden">
+					<img
+						src={getTMDBImageUrl(query.data?.backdrop_path, 'original')}
+						className="size-full object-cover"
+					/>
+				</div>
+				<div className="absolute top-0 left-0 z-10 size-full bg-gradient-to-t from-black from-30% via-black/60 via-60% to-transparent" />
 			</div>
 
-			<div className="relative mx-auto flex w-full max-w-7xl flex-col items-center justify-center rounded-md bg-gray-600/60 px-4 py-5 shadow-lg backdrop-blur-2xl">
-				<div className="flex w-full gap-5">
-					<img
-						src={getTMDBImageUrl(query.data?.poster_path, 'w300')}
-						className="relative z-10 rounded-md"
-					/>
+			<div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center justify-center rounded-md px-4 py-5 shadow-lg">
+				<div className="flex h-[510px] w-full items-end gap-16">
+					<div className="h-full w-[336px] overflow-hidden rounded-3xl">
+						<img
+							src={getTMDBImageUrl(query.data?.poster_path, 'w300')}
+							className="size-full object-cover"
+						/>
+					</div>
 					{!query.isLoading && query.data && (
-						<div className="flex grow flex-col gap-2">
-							<h1 className="text-2xl font-bold">{query.data.name}</h1>
+						<div className="flex grow flex-col">
+							<h1 className="mb-5 text-[32px] leading-[32px] font-bold">
+								<span className="bg-gradient-to-t from-white/75 to-white to-40% bg-clip-text text-transparent">
+									{query.data.name}
+								</span>{' '}
+								<span className="font-normal text-white/65">
+									({format(new Date(query.data.first_air_date), 'yyyy')})
+								</span>
+							</h1>
 							<div className="flex grow flex-col gap-px">
 								<SeriesProperty
 									name="genres"

@@ -6,6 +6,7 @@ import PrivateRoute from '@/components/route-gates/private-route';
 import PublicRoute from '@/components/route-gates/public-route';
 import routes from '@/lib/router';
 import MainLayout from './components/layouts/main-layout';
+import './globals.css';
 
 const queryClient = new QueryClient();
 
