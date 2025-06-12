@@ -12,3 +12,11 @@ body {
 	background-color: var(--color-background);
 	color: var(--color-foreground);
 }
+
+.blur-fade {
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+
+	mask-image: linear-gradient(to top, black 70%, transparent);
+	-webkit-mask-image: linear-gradient(to top, black 70%, transparent);
+}
