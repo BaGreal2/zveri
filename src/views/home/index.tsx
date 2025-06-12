@@ -21,6 +21,7 @@ const Home = () => {
 		<div className="overflow-x-hidden pt-32">
 			<PerfectScrollbar>
 				<ul className="flex gap-5 overflow-auto px-4">
+					{/* @ts-expect-error No type for series */}
 					{query.data?.results.map((series) => (
 						<li key={series.id}>
 							<NavLink to={`/series/${series.id}`}>

@@ -78,6 +78,7 @@ const SeriesDetails = () => {
 					{!query.isLoading && query.data && (
 						<div className="flex grow flex-col">
 							<div className="mb-5 flex gap-2">
+								{/* @ts-expect-error No type for genres */}
 								{query.data.genres.map((genre) => (
 									<GenreBadge key={genre.name} genre={genre.name} />
 								))}
@@ -127,10 +128,10 @@ const SeriesDetails = () => {
 									</div>
 								</div>
 								<div className="flex items-center gap-1.5">
-									<button className="cursor-pointer transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_15px_rgba(108,135,84,0.2)] rounded-full">
+									<button className="cursor-pointer rounded-full transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_15px_rgba(108,135,84,0.2)]">
 										<LikeIcon className="size-9" />
 									</button>
-									<button className="cursor-pointer transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_15px_rgba(157,88,64,0.2)] rounded-full">
+									<button className="cursor-pointer rounded-full transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_15px_rgba(157,88,64,0.2)]">
 										<DislikeIcon className="size-9" />
 									</button>
 								</div>

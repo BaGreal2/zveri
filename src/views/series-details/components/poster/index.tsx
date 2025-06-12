@@ -10,6 +10,7 @@ interface Props {
 const Poster = ({ posterPath, trailer, status }: Props) => {
 	const handleTrailerOpen = () => {
 		if (trailer) {
+      // @ts-expect-error trailer type is not defined
 			const trailerUrl = `https://www.youtube.com/watch?v=${trailer.key}`;
 			window.open(trailerUrl, '_blank');
 		}
