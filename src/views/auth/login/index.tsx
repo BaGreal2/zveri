@@ -31,7 +31,8 @@ const Login = () => {
 	});
 	const { control, handleSubmit } = form;
 
-	const { mutate, error, isError } = useMutation({
+	// @ts-expct-error Not using until backend deployed
+	const { error, isError } = useMutation({
 		mutationFn: login,
 		onSuccess: (data) => {
 			console.log('Data received:', data);
@@ -49,8 +50,16 @@ const Login = () => {
 		}
 	});
 
-	const onSubmit = (data: LoginFormData) => {
-		mutate(data);
+	const onSubmit = () => {
+		setUser({
+			username: 'REMOVE_ME',
+			email: 'REMOVE_ME',
+			id: 123412,
+			createdAt: new Date(),
+			updatedAt: new Date()
+		});
+		setToken('REMOVE_ME');
+		// mutate(data);
 	};
 
 	return (
