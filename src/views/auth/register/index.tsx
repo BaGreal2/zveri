@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,6 +24,10 @@ const registerFormSchema = z.object({
 export type RegisterFormData = z.infer<typeof registerFormSchema>;
 
 const Register = () => {
+	useEffect(() => {
+		document.title = 'Register | Seasons';
+	}, []);
+
 	const navigate = useNavigate();
 	const form = useForm<RegisterFormData>({
 		resolver: zodResolver(registerFormSchema)
@@ -37,7 +42,7 @@ const Register = () => {
 		},
 		onError: (error) => {
 			console.error('Registration failed:', error);
-		},
+		}
 	});
 
 	const onSubmit = (data: RegisterFormData) => {

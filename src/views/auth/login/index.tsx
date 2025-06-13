@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -25,6 +26,10 @@ const loginFormSchema = z.object({
 export type LoginFormData = z.infer<typeof loginFormSchema>;
 
 const Login = () => {
+	useEffect(() => {
+		document.title = 'Login | Seasons';
+	}, []);
+
 	const { setUser, setToken } = useAuthStore();
 	const form = useForm<LoginFormData>({
 		resolver: zodResolver(loginFormSchema)

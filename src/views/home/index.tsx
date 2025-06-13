@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { NavLink } from 'react-router';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import TextFade from '@/components/ui/text-fade';
@@ -6,6 +7,10 @@ import { getTMDBImageUrl } from '@/lib/utils';
 import getTopRatedSeries from './actions/get-top-rated-series';
 
 const Home = () => {
+	useEffect(() => {
+		document.title = 'Home | Seasons';
+	}, []);
+
 	const { setUser, setToken } = useAuthStore();
 	const query = useInfiniteQuery({
 		queryKey: ['top-rated'],

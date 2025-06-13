@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
@@ -22,6 +23,14 @@ const SeriesDetails = () => {
 		queryKey: ['series', seriesId],
 		queryFn: () => getSeriesDetails(seriesId)
 	});
+
+	useEffect(() => {
+		if (!query.data) {
+			document.title = 'Loading... | Seasons';
+			return;
+		}
+		document.title = `${query.data?.name} | Seasons`;
+	}, [query.data]);
 
 	if (query.isLoading) return <SeriesDetailsSkeleton />;
 	if (query.isError || !query.data) return <p>Failed to load series details</p>;
