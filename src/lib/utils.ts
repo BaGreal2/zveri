@@ -53,3 +53,21 @@ export const getTMDBImageUrl = (path: string, size: string) => {
 
 	return imageUrl;
 };
+
+export const getOS = () => {
+	const nav = navigator as Navigator & { userAgentData?: unknown };
+
+	// @ts-expect-error userAgentData is not defined in Navigator type
+	if (nav.userAgentData?.platform) {
+		// @ts-expect-error userAgentData is not defined in Navigator type
+		const platform = nav.userAgentData.platform.toLowerCase();
+		if (platform.includes('mac')) return 'macOS';
+		if (platform.includes('win')) return 'Windows';
+		return 'Other';
+	}
+
+	const ua = navigator.userAgent.toLowerCase();
+	if (ua.includes('mac')) return 'macOS';
+	if (ua.includes('win')) return 'Windows';
+	return 'Other';
+};
