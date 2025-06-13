@@ -1,22 +1,41 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { FaPlay, FaRegStar } from 'react-icons/fa';
+import { useQuery } from '@tanstack/react-query';
 import TextFade from '@/components/ui/text-fade';
 import { cn, getTMDBImageUrl } from '@/lib/utils';
+import getSeriesTrailer from '../../actions/get-series-trailer';
 
 interface Trailer {
 	key: string;
+	site: string;
+	type: string;
 }
 
 interface Props {
+	seriesId: string;
 	posterPath: string | null;
-	trailer: Trailer | null;
 	status: string;
 }
 
-const Poster = ({ posterPath, trailer, status }: Props) => {
+const Poster = ({ seriesId, posterPath, status }: Props) => {
+	const trailerQuery = useQuery({
+		queryKey: ['series-trailer', seriesId],
+		queryFn: () => getSeriesTrailer(seriesId)
+	});
+
 	const [highResLoaded, setHighResLoaded] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
+
+	const trailer = useMemo(() => {
+		const trailers = trailerQuery.data?.results ?? [];
+
+		return (
+			trailers.find(
+				(t: Trailer) => t.site === 'YouTube' && t.type === 'Trailer'
+			) ?? null
+		);
+	}, [trailerQuery.data]);
 
 	const openModal = () => {
 		if (!trailer) return;
@@ -55,22 +74,24 @@ const Poster = ({ posterPath, trailer, status }: Props) => {
 							<FaRegStar className="size-4" />
 						</button>
 
-						<button
-							onClick={openModal}
-							className="group absolute bottom-0 left-0 z-20 h-1/3 w-full cursor-pointer"
-						>
-							<div className="absolute bottom-9 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3.5">
-								<div className="flex size-[50px] items-center justify-center rounded-full border border-white/20 bg-gradient-to-t from-white/20 to-white/5 backdrop-blur-xl transition-transform duration-300 group-hover:scale-105 group-hover:bg-white/20 group-hover:shadow-[0_0_25px_rgba(255,255,255,0.15)] group-hover:backdrop-blur-md">
-									<FaPlay className="-mr-0.5 size-5" />
+						{trailer && (
+							<button
+								onClick={openModal}
+								className="group absolute bottom-0 left-0 z-20 h-1/3 w-full cursor-pointer"
+							>
+								<div className="absolute bottom-9 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3.5">
+									<div className="flex size-[50px] items-center justify-center rounded-full border border-white/20 bg-gradient-to-t from-white/20 to-white/5 backdrop-blur-xl transition-transform duration-300 group-hover:scale-105 group-hover:bg-white/20 group-hover:shadow-[0_0_25px_rgba(255,255,255,0.15)] group-hover:backdrop-blur-md">
+										<FaPlay className="-mr-0.5 size-5" />
+									</div>
+									<TextFade className="text-lg font-bold transition-transform duration-300 group-hover:translate-x-0.5">
+										Play Trailer
+									</TextFade>
 								</div>
-								<TextFade className="text-lg font-bold transition-transform duration-300 group-hover:translate-x-0.5">
-									Play Trailer
-								</TextFade>
-							</div>
 
-							<div className="absolute bottom-0 left-0 h-2/5 w-full backdrop-blur-xs" />
-							<div className="absolute bottom-0 left-0 h-full w-full bg-gradient-to-t from-black/85 to-black/0 transition-all duration-300 group-hover:h-[120%]" />
-						</button>
+								<div className="blur-fade-xs absolute bottom-0 left-0 h-2/5 w-full" />
+								<div className="absolute bottom-0 left-0 h-full w-full bg-gradient-to-t from-black/85 to-black/0 transition-all duration-300 group-hover:h-[120%]" />
+							</button>
+						)}
 					</>
 				)}
 			</div>

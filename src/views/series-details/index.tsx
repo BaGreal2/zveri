@@ -2,7 +2,6 @@ import { useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import getSeriesDetails from './actions/get-series-details';
-import getSeriesTrailer from './actions/get-series-trailer';
 import DetailBadge from './components/detail-badge';
 import Overview from './components/overview';
 import Poster from './components/poster';
@@ -24,11 +23,6 @@ const SeriesDetails = () => {
 		queryFn: () => getSeriesDetails(seriesId)
 	});
 
-	const trailerQuery = useQuery({
-		queryKey: ['series-trailer', seriesId],
-		queryFn: () => getSeriesTrailer(seriesId)
-	});
-
 	if (query.isLoading) return <SeriesDetailsSkeleton />;
 	if (query.isError || !query.data) return <p>Failed to load series details</p>;
 
@@ -39,8 +33,8 @@ const SeriesDetails = () => {
 			<div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-center rounded-md px-4 py-5 shadow-lg">
 				<div className="flex h-[510px] w-full items-end gap-16">
 					<Poster
+						seriesId={seriesId}
 						posterPath={query.data.poster_path}
-						trailer={trailerQuery.data?.results[0]}
 						status={query.data.status}
 					/>
 
