@@ -9,27 +9,60 @@ interface Props {
 
 const EpisodeShot = ({ name, stillPath, style }: Props) => {
 	const [highResLoaded, setHighResLoaded] = useState(false);
+	const [showModal, setShowModal] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
+
+	const openModal = () => {
+		setShowModal(true);
+		requestAnimationFrame(() => setIsOpen(true));
+	};
+
+	const closeModal = () => {
+		setIsOpen(false);
+		setTimeout(() => setShowModal(false), 300);
+	};
 
 	return (
-		<div
-			className="fade-in-top h-[155px] w-[250px] overflow-hidden rounded-[30px] border border-white/25 bg-white/5 opacity-0 shadow-[0_0_10px_rgba(255,255,255,0.15)] backdrop-blur-md transition-all duration-300 ease-in-out hover:scale-105 hover:bg-white/20 hover:shadow-[0_0_55px_rgba(255,255,255,0.2)] hover:backdrop-blur-md"
-			style={style}
-		>
-			<img
-				src={getTMDBImageUrl(stillPath, 'w92')}
-				className="absolute top-0 left-0 size-full scale-105 object-cover blur-lg transition-opacity duration-500"
-				aria-hidden="true"
-			/>
-			<img
-				src={getTMDBImageUrl(stillPath, 'original')}
-				alt={name}
-				onLoad={() => setHighResLoaded(true)}
-				style={{
-					opacity: highResLoaded ? 1 : 0
-				}}
-				className="relative z-10 size-full object-cover"
-			/>
-		</div>
+		<>
+			<button
+				onClick={openModal}
+				className="fade-in-top h-[155px] w-[250px] overflow-hidden rounded-[30px] border border-white/25 bg-white/5 opacity-0 shadow-[0_0_10px_rgba(255,255,255,0.15)] backdrop-blur-md transition-all duration-300 ease-in-out hover:scale-105 hover:bg-white/20 hover:shadow-[0_0_55px_rgba(255,255,255,0.2)] hover:backdrop-blur-md"
+				style={style}
+			>
+				<img
+					src={getTMDBImageUrl(stillPath, 'w92')}
+					className="absolute top-0 left-0 size-full scale-105 object-cover blur-lg transition-opacity duration-500"
+					aria-hidden="true"
+				/>
+				<img
+					src={getTMDBImageUrl(stillPath, 'w500')}
+					alt={name}
+					onLoad={() => setHighResLoaded(true)}
+					style={{ opacity: highResLoaded ? 1 : 0 }}
+					className="relative z-10 size-full object-cover"
+				/>
+			</button>
+
+			{showModal && (
+				<div className="fixed inset-0 z-50 flex items-center justify-center">
+					<button
+						className={`absolute inset-0 bg-black/70 backdrop-blur-md transition-opacity duration-300 ${
+							isOpen ? 'opacity-100' : 'opacity-0'
+						}`}
+						onClick={closeModal}
+					/>
+
+					<img
+						src={getTMDBImageUrl(stillPath, 'original')}
+						alt={name}
+						onClick={closeModal}
+						className={`relative z-10 max-h-[70%] max-w-[70%] rounded-3xl object-cover transition-all duration-300 ${
+							isOpen ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
+						}`}
+					/>
+				</div>
+			)}
+		</>
 	);
 };
 
