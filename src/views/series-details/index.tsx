@@ -4,7 +4,6 @@ import { format } from 'date-fns';
 import getSeriesDetails from './actions/get-series-details';
 import getSeriesTrailer from './actions/get-series-trailer';
 import DetailBadge from './components/detail-badge';
-import EpisodesShots from './components/episodes-shots';
 import Genres from './components/genres';
 import Overview from './components/overview';
 import PageBackground from './components/page-background';
@@ -13,6 +12,7 @@ import Rating from './components/rating';
 import SeriesDetailsSkeleton from './components/skeleton';
 import Title from './components/title';
 import UserReaction from './components/user-reaction';
+import EpisodesShots from './widgets/episodes-shots';
 
 const SeriesDetails = () => {
 	const { seriesId } = useParams();
