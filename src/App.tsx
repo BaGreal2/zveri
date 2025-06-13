@@ -14,26 +14,26 @@ const App = () => {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
-				<Suspense fallback={<Loading />}>
-					<MainLayout>
-						<Routes>
-							{routes.map(({ type, path, element }) => (
-								<Route
-									key={path}
-									path={path}
-									element={
-										type === 'public' ? (
+				<MainLayout>
+					<Routes>
+						{routes.map(({ type, path, element, fallback }) => (
+							<Route
+								key={path}
+								path={path}
+								element={
+									<Suspense fallback={fallback ?? <Loading />}>
+										{type === 'public' ? (
 											<PublicRoute element={element} />
 										) : (
 											<PrivateRoute element={element} />
-										)
-									}
-								/>
-							))}
-							<Route path="*" element={<Navigate to="/home" />} />
-						</Routes>
-					</MainLayout>
-				</Suspense>
+										)}
+									</Suspense>
+								}
+							/>
+						))}
+						<Route path="*" element={<Navigate to="/home" />} />
+					</Routes>
+				</MainLayout>
 			</BrowserRouter>
 		</QueryClientProvider>
 	);

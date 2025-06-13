@@ -10,10 +10,15 @@ const SeriesDetailsPage = React.lazy(
 	() => import('../views/series-details/index.tsx')
 );
 
+const SeriesDetailsSkeleton = React.lazy(
+	() => import('../views/series-details/components/skeleton/index.tsx')
+);
+
 interface Route {
 	path: string;
 	element: React.ReactNode;
 	type: 'public' | 'private';
+	fallback?: React.ReactNode;
 }
 
 const routes: Route[] = [
@@ -40,6 +45,7 @@ const routes: Route[] = [
 	{
 		path: '/series/:seriesId',
 		type: 'private',
+		fallback: <SeriesDetailsSkeleton />,
 		element: <SeriesDetailsPage />
 	}
 ];
