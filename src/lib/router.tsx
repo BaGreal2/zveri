@@ -1,53 +1,70 @@
 import React from 'react';
+import { createBrowserRouter, Navigate } from 'react-router';
+import MainLayout from '@/components/layouts/main-layout';
+import Loading from '@/components/loading';
+import PrivateRoute from '@/components/route-gates/private-route';
+import PublicRoute from '@/components/route-gates/public-route';
 
-const LoginPage = React.lazy(() => import('../views/auth/login/index.tsx'));
-const RegisterPage = React.lazy(
-	() => import('../views/auth/register/index.tsx')
-);
-const ProfilePage = React.lazy(() => import('../views/profile/index.tsx'));
-const HomePage = React.lazy(() => import('../views/home/index.tsx'));
-const SeriesDetailsPage = React.lazy(
-	() => import('../views/series-details/index.tsx')
-);
-
+const LoginPage = React.lazy(() => import('../views/auth/login'));
+const RegisterPage = React.lazy(() => import('../views/auth/register'));
+const ProfilePage = React.lazy(() => import('../views/profile'));
+const HomePage = React.lazy(() => import('../views/home'));
+const SeriesDetailsPage = React.lazy(() => import('../views/series-details'));
 const SeriesDetailsSkeleton = React.lazy(
-	() => import('../views/series-details/widgets/skeleton/index.tsx')
+	() => import('../views/series-details/widgets/skeleton')
 );
 
-interface Route {
-	path: string;
-	element: React.ReactNode;
-	type: 'public' | 'private';
-	fallback?: React.ReactNode;
-}
-
-const routes: Route[] = [
+const router = createBrowserRouter([
 	{
-		path: '/home',
-		type: 'private',
-		element: <HomePage />
-	},
-	{
-		path: '/login',
-		type: 'public',
-		element: <LoginPage />
-	},
-	{
-		path: '/register',
-		type: 'public',
-		element: <RegisterPage />
-	},
-	{
-		path: '/profile',
-		type: 'private',
-		element: <ProfilePage />
-	},
-	{
-		path: '/series/:seriesId',
-		type: 'private',
-		fallback: <SeriesDetailsSkeleton />,
-		element: <SeriesDetailsPage />
+		path: '/',
+		Component: MainLayout,
+		children: [
+			{
+				path: 'home',
+				Component: () => (
+					<React.Suspense fallback={<Loading />}>
+						<PrivateRoute element={<HomePage />} />
+					</React.Suspense>
+				)
+			},
+			{
+				path: 'login',
+				Component: () => (
+					<React.Suspense fallback={<Loading />}>
+						<PublicRoute element={<LoginPage />} />
+					</React.Suspense>
+				)
+			},
+			{
+				path: 'register',
+				Component: () => (
+					<React.Suspense fallback={<Loading />}>
+						<PublicRoute element={<RegisterPage />} />
+					</React.Suspense>
+				)
+			},
+			{
+				path: 'profile',
+				Component: () => (
+					<React.Suspense fallback={<Loading />}>
+						<PrivateRoute element={<ProfilePage />} />
+					</React.Suspense>
+				)
+			},
+			{
+				path: 'series/:seriesId',
+				Component: () => (
+					<React.Suspense fallback={<SeriesDetailsSkeleton />}>
+						<PrivateRoute element={<SeriesDetailsPage />} />
+					</React.Suspense>
+				)
+			},
+			{
+				path: '*',
+				Component: () => <Navigate to="/home" replace />
+			}
+		]
 	}
-];
+]);
 
-export default routes;
+export default router;
