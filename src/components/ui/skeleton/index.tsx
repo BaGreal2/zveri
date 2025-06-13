@@ -8,7 +8,7 @@ const Skeleton = ({ className }: Props) => {
 	return (
 		<div
 			className={cn(
-				'size-full animate-pulse rounded-xl bg-gray-800',
+				'size-full animate-pulse rounded-xl bg-white/15',
 				className
 			)}
 		/>
