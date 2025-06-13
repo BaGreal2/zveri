@@ -31,8 +31,13 @@ const links = [
 
 const Header = () => {
 	return (
-		<nav className="fixed top-4 left-1/2 z-10 flex h-[100px] w-full max-w-[1360px] -translate-x-1/2 items-center justify-center overflow-hidden rounded-full px-12 shadow-[0_2px_2px_0_rgba(0,0,0,0.35)] backdrop-blur-2xl">
-			<div className="relative z-10 flex size-full items-center justify-between">
+		<nav
+			className="fixed top-0 left-0 z-10 flex h-[125px] w-full items-center justify-center overflow-hidden backdrop-blur-2xl"
+			style={{
+				background: `linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.81) 47.63%, rgba(0, 0, 0, 0.68) 100%)`
+			}}
+		>
+			<div className="relative z-10 mx-auto flex size-full max-w-[1360px] items-center justify-between px-12">
 				<NavLink to="/home">
 					<LogoIcon className="h-[46px] w-40" />
 				</NavLink>
@@ -56,11 +61,6 @@ const Header = () => {
 					</NavLink>
 				</div>
 			</div>
-			{/* Radial White Glow */}
-			<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.15)_0%,_rgba(255,255,255,0)_80%)]" />
-
-			{/* Linear Black Fade (e.g. top shadow) */}
-			<div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,_rgba(0,0,0,0.75)_0%,_rgba(0,0,0,0)_100%)]" />
 		</nav>
 	);
 };
