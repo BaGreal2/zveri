@@ -1,5 +1,5 @@
 import { useState, type CSSProperties } from 'react';
-import { getTMDBImageUrl } from '@/lib/utils';
+import { cn, getTMDBImageUrl } from '@/lib/utils';
 
 interface Props {
 	name: string;
@@ -31,7 +31,7 @@ const EpisodeShot = ({ name, stillPath, style }: Props) => {
 			>
 				<img
 					src={getTMDBImageUrl(stillPath, 'w92')}
-					className="absolute top-0 left-0 size-full scale-105 object-cover blur-lg transition-opacity duration-500"
+					className="pointer-events-none absolute top-0 left-0 size-full scale-105 object-cover blur-lg transition-opacity duration-500"
 					aria-hidden="true"
 				/>
 				<img
@@ -39,7 +39,7 @@ const EpisodeShot = ({ name, stillPath, style }: Props) => {
 					alt={name}
 					onLoad={() => setHighResLoaded(true)}
 					style={{ opacity: highResLoaded ? 1 : 0 }}
-					className="relative z-10 size-full object-cover"
+					className="pointer-events-none relative z-10 size-full object-cover"
 				/>
 			</button>
 
@@ -56,9 +56,10 @@ const EpisodeShot = ({ name, stillPath, style }: Props) => {
 						src={getTMDBImageUrl(stillPath, 'original')}
 						alt={name}
 						onClick={closeModal}
-						className={`relative z-10 max-h-[70%] max-w-[70%] rounded-3xl object-cover transition-all duration-300 ${
+						className={cn(
+							'relative z-10 max-h-[75%] max-w-[75%] rounded-3xl object-cover shadow-[0_0_20px_rgba(0,0,0,0.6)] transition-all duration-300',
 							isOpen ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
-						}`}
+						)}
 					/>
 				</div>
 			)}

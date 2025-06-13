@@ -11,7 +11,7 @@ const SeriesDetailsPage = React.lazy(
 );
 
 const SeriesDetailsSkeleton = React.lazy(
-	() => import('../views/series-details/components/skeleton/index.tsx')
+	() => import('../views/series-details/widgets/skeleton/index.tsx')
 );
 
 interface Route {

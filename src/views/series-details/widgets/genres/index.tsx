@@ -1,4 +1,4 @@
-import GenreBadge from '../genre-badge';
+import GenreBadge from '../../components/genre-badge';
 
 interface Props {
 	genres: { name: string }[];
