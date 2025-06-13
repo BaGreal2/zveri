@@ -70,7 +70,7 @@ const Poster = ({ seriesId, posterPath, status }: Props) => {
 							</TextFade>
 						</div>
 
-						<button className="absolute top-5 right-5 z-20 flex size-10 items-center justify-center rounded-full border border-white/10 bg-gradient-to-t from-black/70 to-black/30 backdrop-blur-sm hover:scale-110 hover:bg-black/50 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:backdrop-blur-md">
+						<button className="absolute top-5 right-5 z-20 flex size-10 items-center justify-center rounded-full border border-white/10 bg-gradient-to-t from-black/70 to-black/30 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-black/50 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:backdrop-blur-md">
 							<FaRegStar className="size-4" />
 						</button>
 

@@ -46,9 +46,10 @@ const EpisodeShot = ({ name, stillPath, style }: Props) => {
 			{showModal && (
 				<div className="fixed inset-0 z-50 flex items-center justify-center">
 					<button
-						className={`absolute inset-0 bg-black/70 backdrop-blur-md transition-opacity duration-300 ${
+						className={cn(
+							'absolute inset-0 bg-black/70 backdrop-blur-md transition-opacity duration-300',
 							isOpen ? 'opacity-100' : 'opacity-0'
-						}`}
+						)}
 						onClick={closeModal}
 					/>
 

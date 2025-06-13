@@ -18,7 +18,7 @@ const Home = () => {
 	};
 
 	return (
-		<div className="overflow-x-hidden pt-32">
+		<div className="overflow-x-hidden pt-[155px]">
 			<PerfectScrollbar>
 				<ul className="flex gap-5 overflow-auto px-4">
 					{/* @ts-expect-error No type for series */}
