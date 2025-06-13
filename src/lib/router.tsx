@@ -20,6 +20,10 @@ const router = createBrowserRouter([
 		Component: MainLayout,
 		children: [
 			{
+				index: true,
+				Component: () => <Navigate to="/home" replace />
+			},
+			{
 				path: 'home',
 				Component: () => (
 					<React.Suspense fallback={<Loading />}>
