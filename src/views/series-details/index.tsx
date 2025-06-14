@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
+import BackgroundAudio from '@/components/background-audio';
 import getSeriesDetails from './actions/get-series-details';
 import DetailBadge from './components/detail-badge';
 import Overview from './components/overview';
@@ -37,6 +38,19 @@ const SeriesDetails = () => {
 
 	return (
 		<div className="bg-black pt-[155px]">
+			{/* 13916 - Death Note */}
+			{seriesId === '13916' && (
+				<>
+					<BackgroundAudio src="/audio/l-theme.mp3" />
+					<div className="fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2 pointer-events-none animate-fade-out-l">
+						<img
+							src="/images/l-logo.png"
+							alt="L"
+							className="size-[460px] animate-glitch invert"
+						/>
+					</div>
+				</>
+			)}
 			<PageBackground backdropPath={query.data.backdrop_path} />
 
 			<div className="relative z-10 mx-auto flex w-full max-w-[1360px] flex-col justify-center rounded-md px-4 py-5 shadow-lg">

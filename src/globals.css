@@ -22,6 +22,91 @@
 	.fade-in-top {
 		animation: fade-in-top 0.5s ease-out forwards;
 	}
+
+	@keyframes glitch {
+		0% {
+			transform: none;
+			filter: none;
+		}
+		10% {
+			transform: translate(-40px, 40px) scale(1.3);
+			filter: invert(100%) hue-rotate(360deg);
+		}
+		20% {
+			transform: translate(40px, -30px) scale(0.7);
+			filter: contrast(7) brightness(3);
+		}
+		30% {
+			transform: translate(-30px, 50px) rotate(-20deg);
+			filter: blur(6px);
+		}
+		40% {
+			transform: translate(30px, -20px) rotate(20deg);
+			filter: saturate(12);
+		}
+		50% {
+			transform: translate(-50px, 20px) scale(1.4);
+			filter: grayscale(100%) invert(70%);
+		}
+		60% {
+			transform: translate(20px, -40px);
+			filter: brightness(0.3) contrast(5);
+		}
+		70% {
+			transform: translate(-30px, 30px) rotate(25deg);
+			filter: sepia(100%) blur(3px);
+		}
+		80% {
+			transform: translate(40px, -50px);
+			filter: invert(90%) hue-rotate(180deg);
+		}
+		90% {
+			transform: translate(-20px, 20px) scale(0.6);
+			filter: opacity(0.3);
+		}
+		100% {
+			transform: none;
+			filter: none;
+		}
+	}
+
+	.animate-glitch {
+		animation: glitch 0.05s infinite alternate;
+	}
+
+	@keyframes fadeOut {
+		0% {
+			opacity: 1;
+		}
+		80% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+
+	.animate-fade-out-l {
+		animation: fadeOut 1s forwards;
+	}
+
+	@keyframes fadeOut {
+		0% {
+			opacity: 1;
+		}
+		80% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+
+	.animate-fade-out {
+		animation: fadeOut 3s forwards;
+	}
 }
 
 body {
@@ -39,9 +124,9 @@ body {
 }
 
 .blur-fade-xs {
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
 
-  mask-image: linear-gradient(to top, black 70%, transparent);
-  -webkit-mask-image: linear-gradient(to top, black 70%, transparent);
+	mask-image: linear-gradient(to top, black 70%, transparent);
+	-webkit-mask-image: linear-gradient(to top, black 70%, transparent);
 }
