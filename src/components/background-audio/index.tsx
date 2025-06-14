@@ -9,10 +9,12 @@ const BackgroundAudio = ({ src }: Props) => {
 
 	useEffect(() => {
 		if (audioRef.current) {
+			// @ts-expect-error TS2339
 			audioRef.current.volume = 0.03;
 			audioRef.current
+				// @ts-expect-error TS2339
 				.play()
-				.catch((error) => console.log('Audio playback failed:', error));
+				.catch((error: Error) => console.log('Audio playback failed:', error));
 		}
 	}, []);
 
