@@ -1,10 +1,10 @@
 import * as React from 'react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import useEmblaCarousel, {
 	type UseEmblaCarouselType
 } from 'embla-carousel-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;

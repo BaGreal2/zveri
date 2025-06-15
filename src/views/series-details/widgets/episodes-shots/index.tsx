@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 import {
 	Carousel,
 	CarouselContent,
@@ -92,7 +93,11 @@ const EpisodesShots = ({ seriesId, numberOfEpisodes }: Props) => {
 
 	return (
 		<div className="relative">
-			<Carousel opts={{ skipSnaps: true }} setApi={setCarouselApi}>
+			<Carousel
+				opts={{ skipSnaps: true }}
+				setApi={setCarouselApi}
+				plugins={[WheelGesturesPlugin()]}
+			>
 				<CarouselContent className="mr-7 -ml-7 pt-[30px]">
 					{episodesQueries.map((q, i) => (
 						<CarouselItem key={i} className="ml-3.5 basis-[250px]">
