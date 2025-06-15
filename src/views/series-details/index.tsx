@@ -53,7 +53,7 @@ const SeriesDetails = () => {
 			)}
 			<PageBackground backdropPath={query.data.backdrop_path} />
 
-			<div className="relative z-10 mx-auto flex w-full max-w-[1360px] flex-col justify-center rounded-md px-4 py-5 shadow-lg">
+			<div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-center rounded-md px-4 py-5 shadow-lg">
 				<div className="flex h-[510px] w-full items-end gap-16">
 					<Poster
 						seriesId={seriesId}

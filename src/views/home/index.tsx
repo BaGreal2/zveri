@@ -31,7 +31,7 @@ const Home = () => {
 
 	return (
 		<div className="overflow-x-hidden pt-[155px]">
-			<ul className="mx-auto flex max-w-[1360px] flex-wrap justify-center gap-5 px-4">
+			<ul className="mx-auto flex max-w-[1440px] flex-wrap justify-center gap-5 px-4">
 				{query.data?.pages.map((page) =>
 					page.results.map((series: unknown) => (
 						// @ts-expect-error No type for series

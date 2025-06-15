@@ -38,7 +38,7 @@ const Header = () => {
 				background: `linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.81) 47.63%, rgba(0, 0, 0, 0.68) 100%)`
 			}}
 		>
-			<div className="relative z-10 mx-auto flex size-full max-w-[1360px] items-center justify-between px-12">
+			<div className="relative z-10 mx-auto flex size-full max-w-[1440px] items-center justify-between px-12">
 				<div className="flex items-center gap-[30px]">
 					<NavLink to="/home">
 						<LogoIcon className="h-[46px] w-40" />

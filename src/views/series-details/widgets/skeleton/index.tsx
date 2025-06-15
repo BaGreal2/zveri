@@ -10,7 +10,7 @@ const SeriesDetailsSkeleton = () => (
 			<div className="absolute top-0 left-0 z-10 size-full bg-gradient-to-t from-black from-30% via-black/60 via-60% to-transparent" />
 		</div>
 
-		<div className="relative z-10 mx-auto flex w-full max-w-[1360px] flex-col justify-center rounded-md px-4 py-5 shadow-lg">
+		<div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-center rounded-md px-4 py-5 shadow-lg">
 			<div className="flex h-[510px] w-full items-end gap-16">
 				<div className="relative h-full w-[336px] shrink-0 overflow-hidden rounded-3xl">
 					<Skeleton className="size-full" />
