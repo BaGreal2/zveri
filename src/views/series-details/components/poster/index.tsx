@@ -79,7 +79,7 @@ const Poster = ({ seriesId, posterPath, status }: Props) => {
 						{trailer && (
 							<button
 								onClick={openModal}
-								className="group absolute bottom-0 left-0 z-20 h-1/3 w-full cursor-pointer"
+								className="fade-in-bottom group absolute bottom-0 left-0 z-20 h-1/3 w-full cursor-pointer"
 							>
 								<div className="absolute bottom-9 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3.5">
 									<div className="flex size-[50px] items-center justify-center rounded-full border border-white/20 bg-gradient-to-t from-white/20 to-white/5 backdrop-blur-xl transition-transform duration-300 group-hover:scale-105 group-hover:bg-white/20 group-hover:shadow-[0_0_25px_rgba(255,255,255,0.15)] group-hover:backdrop-blur-md">
