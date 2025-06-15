@@ -136,7 +136,7 @@ const EpisodesShots = ({ seriesId, numberOfEpisodes }: Props) => {
 						/>
 
 						<div
-							className="relative z-20 flex max-h-[80%] max-w-[80%] items-center gap-6"
+							className="relative z-20 flex items-center gap-6"
 							onClick={closeModal}
 						>
 							<button
@@ -158,7 +158,7 @@ const EpisodesShots = ({ seriesId, numberOfEpisodes }: Props) => {
 								alt={name}
 								onClick={closeModal}
 								className={cn(
-									'relative z-10 size-full rounded-3xl object-cover shadow-[0_0_20px_rgba(0,0,0,0.6)] transition-all duration-300',
+									'relative z-10 w-full max-w-[70vw] rounded-3xl object-cover shadow-[0_0_20px_rgba(0,0,0,0.6)] transition-all duration-300',
 									isOpen ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
 								)}
 							/>
