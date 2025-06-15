@@ -3,7 +3,7 @@ import ArrowUpBrokenIcon from '@/icons/arrow-up-broken.svg?react';
 import GithubIcon from '@/icons/github.svg?react';
 import InstagramIcon from '@/icons/instagram.svg?react';
 import SeasonsXCDVIcon from '@/icons/seasons-x-cdv.svg?react';
-import VimeoIcon from '@/icons/vimeo.svg?react';
+import TickTockIcon from '@/icons/tiktok.svg?react';
 import WikipediaIcon from '@/icons/wikipedia.svg?react';
 import YoutubeIcon from '@/icons/youtube.svg?react';
 import TextFade from '../ui/text-fade';
@@ -45,8 +45,8 @@ const socialLinks = [
 		icon: InstagramIcon
 	},
 	{
-		to: 'https://www.vimeo.com/',
-		icon: VimeoIcon
+		to: 'https://www.tiktok.com/@yayasyllatheboss/video/7227070246459395334',
+		icon: TickTockIcon
 	}
 ];
 
