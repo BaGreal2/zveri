@@ -5,6 +5,7 @@ import {
 	CarouselItem
 } from '@/components/ui/carousel';
 import { type CarouselApi } from '@/components/ui/carousel';
+import Skeleton from '@/components/ui/skeleton';
 import EpisodeShot from '../../components/episode-shot';
 import useEpisodes from '../../hooks/useEpisodes';
 
@@ -47,17 +48,19 @@ const EpisodesShots = ({ seriesId, numberOfEpisodes }: Props) => {
 		<div className="relative">
 			<Carousel opts={{ skipSnaps: true }} setApi={setCarouselApi}>
 				<CarouselContent className="mr-7 -ml-7 pt-[30px]">
-					{episodesQueries
-						.filter((q) => q.isSuccess && q.data)
-						.map((q, i) => (
-							<CarouselItem key={i} className="ml-3.5 basis-[250px]">
+					{episodesQueries.map((q, i) => (
+						<CarouselItem key={i} className="ml-3.5 basis-[250px]">
+							{q.isLoading || !q.data ? (
+								<Skeleton className="h-[155px] w-[250px] rounded-[30px]" />
+							) : (
 								<EpisodeShot
 									name={q.data.name || `Episode ${i + 1}`}
 									stillPath={q.data.still_path}
 									style={{ animationDelay: `${i * 100}ms` }}
 								/>
-							</CarouselItem>
-						))}
+							)}
+						</CarouselItem>
+					))}
 				</CarouselContent>
 			</Carousel>
 
