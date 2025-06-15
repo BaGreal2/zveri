@@ -1,4 +1,6 @@
 import { useState, type CSSProperties } from 'react';
+import { createPortal } from 'react-dom';
+import { modalRoot } from '@/lib/roots';
 import { cn, getTMDBImageUrl } from '@/lib/utils';
 
 interface Props {
@@ -43,27 +45,30 @@ const EpisodeShot = ({ name, stillPath, style }: Props) => {
 				/>
 			</button>
 
-			{showModal && (
-				<div className="fixed inset-0 z-50 flex items-center justify-center">
-					<button
-						className={cn(
-							'absolute inset-0 bg-black/70 backdrop-blur-md transition-opacity duration-300',
-							isOpen ? 'opacity-100' : 'opacity-0'
-						)}
-						onClick={closeModal}
-					/>
+			{showModal &&
+				modalRoot &&
+				createPortal(
+					<div className="fixed inset-0 z-50 flex items-center justify-center">
+						<button
+							className={cn(
+								'absolute inset-0 bg-black/70 backdrop-blur-md transition-opacity duration-300',
+								isOpen ? 'opacity-100' : 'opacity-0'
+							)}
+							onClick={closeModal}
+						/>
 
-					<img
-						src={getTMDBImageUrl(stillPath, 'original')}
-						alt={name}
-						onClick={closeModal}
-						className={cn(
-							'relative z-10 max-h-[75%] max-w-[75%] rounded-3xl object-cover shadow-[0_0_20px_rgba(0,0,0,0.6)] transition-all duration-300',
-							isOpen ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
-						)}
-					/>
-				</div>
-			)}
+						<img
+							src={getTMDBImageUrl(stillPath, 'original')}
+							alt={name}
+							onClick={closeModal}
+							className={cn(
+								'relative z-10 max-h-[75%] max-w-[75%] rounded-3xl object-cover shadow-[0_0_20px_rgba(0,0,0,0.6)] transition-all duration-300',
+								isOpen ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
+							)}
+						/>
+					</div>,
+					modalRoot
+				)}
 		</>
 	);
 };

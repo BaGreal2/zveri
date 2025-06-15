@@ -33,7 +33,7 @@ const links = [
 const Header = () => {
 	return (
 		<nav
-			className="fixed top-0 left-0 z-10 flex h-[100px] w-full items-center justify-center overflow-hidden border-b border-white/15 backdrop-blur-2xl"
+			className="fixed top-0 left-0 z-40 flex h-[100px] w-full items-center justify-center overflow-hidden border-b border-white/15 backdrop-blur-2xl"
 			style={{
 				background: `linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.81) 47.63%, rgba(0, 0, 0, 0.68) 100%)`
 			}}
