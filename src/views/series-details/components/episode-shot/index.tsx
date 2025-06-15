@@ -28,7 +28,7 @@ const EpisodeShot = ({ name, stillPath, style }: Props) => {
 		<>
 			<button
 				onClick={openModal}
-				className="fade-in-top h-[155px] w-[250px] overflow-hidden rounded-[30px] border border-white/25 bg-white/5 opacity-0 shadow-[0_0_10px_rgba(255,255,255,0.15)] backdrop-blur-md transition-all duration-300 ease-in-out hover:scale-105 hover:bg-white/20 hover:shadow-[0_0_55px_rgba(255,255,255,0.2)] hover:backdrop-blur-md"
+				className="fade-in-top h-[155px] w-[250px] shrink-0 overflow-hidden rounded-[30px] border border-white/25 bg-white/5 opacity-0 shadow-[0_0_10px_rgba(255,255,255,0.15)] backdrop-blur-md transition-all duration-300 ease-in-out hover:scale-105 hover:bg-white/20 hover:shadow-[0_0_55px_rgba(255,255,255,0.2)] hover:backdrop-blur-md"
 				style={style}
 			>
 				<img
