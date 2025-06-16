@@ -106,7 +106,13 @@ const Footer = () => {
 							<TextFade className="from-white/25 to-white/65">with</TextFade>{' '}
 							<TextFade>love 🤍</TextFade>
 						</span>
-						<SeasonsXCDVIcon className="h-[23px] w-[90px]" />
+						<Link
+							to="https://cdv.pl/"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<SeasonsXCDVIcon className="h-[23px] w-[90px]" />
+						</Link>
 					</div>
 				</div>
 			</div>
