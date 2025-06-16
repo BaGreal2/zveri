@@ -11,6 +11,7 @@ import Rating from './components/rating';
 import Title from './components/title';
 import UserReaction from './components/user-reaction';
 import EpisodesShots from './widgets/episodes-shots';
+import EpisodesTable from './widgets/episodes-table';
 import Genres from './widgets/genres';
 import PageBackground from './widgets/page-background';
 import SeriesDetailsSkeleton from './widgets/skeleton';
@@ -20,21 +21,23 @@ const SeriesDetails = () => {
 
 	if (!seriesId) return <p>Series ID is required</p>;
 
-	const query = useQuery({
+	const seriesQuery = useQuery({
 		queryKey: ['series', seriesId],
 		queryFn: () => getSeriesDetails(seriesId)
 	});
 
 	useEffect(() => {
-		if (!query.data) {
+		if (!seriesQuery.data) {
 			document.title = 'Loading... | Seasons';
 			return;
 		}
-		document.title = `${query.data?.name} | Seasons`;
-	}, [query.data]);
+		document.title = `${seriesQuery.data?.name} | Seasons`;
+		console.log(`Loaded series:`, seriesQuery.data);
+	}, [seriesQuery.data]);
 
-	if (query.isLoading) return <SeriesDetailsSkeleton />;
-	if (query.isError || !query.data) return <p>Failed to load series details</p>;
+	if (seriesQuery.isLoading) return <SeriesDetailsSkeleton />;
+	if (seriesQuery.isError || !seriesQuery.data)
+		return <p>Failed to load series details</p>;
 
 	return (
 		<div className="bg-black pt-[155px]">
@@ -42,67 +45,77 @@ const SeriesDetails = () => {
 			{seriesId === '13916' && (
 				<>
 					<BackgroundAudio src="/audio/l-theme.mp3" />
-					<div className="fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2 pointer-events-none animate-fade-out-l">
+					<div className="animate-fade-out-l pointer-events-none fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
 						<img
 							src="/images/l-logo.png"
 							alt="L"
-							className="size-[460px] animate-glitch invert"
+							className="animate-glitch size-[460px] invert"
 						/>
 					</div>
 				</>
 			)}
-			<PageBackground backdropPath={query.data.backdrop_path} />
+			<PageBackground backdropPath={seriesQuery.data.backdrop_path} />
 
 			<div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-center rounded-md px-4 py-5 shadow-lg">
 				<div className="flex h-[510px] w-full items-end gap-16">
 					<Poster
 						seriesId={seriesId}
-						posterPath={query.data.poster_path}
-						status={query.data.status}
+						posterPath={seriesQuery.data.poster_path}
+						status={seriesQuery.data.status}
 					/>
 
 					<div className="flex grow flex-col">
-						<Genres genres={query.data.genres} />
+						<Genres genres={seriesQuery.data.genres} />
 
 						<Title
-							name={query.data.name}
-							countryCode={query.data.origin_country[0]}
-							firstAirDate={query.data.first_air_date}
+							name={seriesQuery.data.name}
+							countryCode={seriesQuery.data.origin_country[0]}
+							firstAirDate={seriesQuery.data.first_air_date}
 						/>
 
 						<div className="mb-10 flex gap-10">
 							<Rating
-								rating={query.data.vote_average}
-								voteCount={query.data.vote_count}
+								rating={seriesQuery.data.vote_average}
+								voteCount={seriesQuery.data.vote_count}
 							/>
 
 							<UserReaction />
 
 							<DetailBadge
 								name="Seasons"
-								content={query.data.number_of_seasons.toLocaleString()}
+								content={seriesQuery.data.number_of_seasons.toLocaleString()}
 								style={{ animationDelay: '100ms' }}
 							/>
 							<DetailBadge
 								name="Episodes"
-								content={query.data.number_of_episodes.toLocaleString()}
+								content={seriesQuery.data.number_of_episodes.toLocaleString()}
 								style={{ animationDelay: '150ms' }}
 							/>
 							<DetailBadge
 								name="Air Date"
-								content={`${format(query.data.first_air_date, 'dd MMM, yyyy')} – 
-									${format(query.data.last_air_date, 'dd MMM, yyyy')}`}
+								content={`${format(seriesQuery.data.first_air_date, 'dd MMM, yyyy')} – 
+									${format(seriesQuery.data.last_air_date, 'dd MMM, yyyy')}`}
 								style={{ animationDelay: '200ms' }}
 							/>
 						</div>
 
-						<Overview content={query.data.overview} />
+						<Overview content={seriesQuery.data.overview} />
 					</div>
 				</div>
 
 				<EpisodesShots
 					seriesId={seriesId}
-					numberOfEpisodes={query.data.number_of_episodes}
+					numberOfEpisodes={
+						seriesQuery.data.seasons.find(
+							// @ts-expect-error No type for season
+							(season) => season.season_number === 1
+						)?.episode_count || 0
+					}
+				/>
+
+				<EpisodesTable
+					seriesId={seriesId}
+					numberOfSeasons={seriesQuery.data.number_of_seasons}
 				/>
 			</div>
 		</div>

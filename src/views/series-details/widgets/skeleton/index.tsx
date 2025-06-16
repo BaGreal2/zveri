@@ -1,4 +1,5 @@
 import Skeleton from '@/components/ui/skeleton';
+import EpisodesSkeletonRow from '../../components/episodes-skeleton-row';
 
 const SeriesDetailsSkeleton = () => (
 	<div className="bg-black pt-[155px]">
@@ -36,10 +37,38 @@ const SeriesDetailsSkeleton = () => (
 				</div>
 			</div>
 
-			<div className="mt-[30px] flex gap-3.5">
+			<div className="mt-[30px] ml-0.5 flex gap-3.5">
 				{Array.from({ length: 5 }).map((_, i) => (
 					<Skeleton key={i} className="h-[155px] w-[250px] rounded-[30px]" />
 				))}
+			</div>
+
+			<div className="mt-[35px]">
+				<div className="flex flex-col gap-1">
+					<div className="flex w-full items-center gap-2">
+						<div className="h-10 w-20 shrink-0" />
+						<div className="flex h-10 pb-0.5 items-end gap-1">
+							<Skeleton className="h-[14px] w-[435px] rounded-xs" />
+						</div>
+					</div>
+
+					<div className="flex items-center gap-2">
+						<div className="flex h-10 w-20 items-center">
+							<Skeleton className="h-[14px] w-[70px] rounded-xs" />
+						</div>
+						<div className="flex gap-1">
+							<EpisodesSkeletonRow amount={10} />
+						</div>
+					</div>
+					<div className="flex items-center gap-2">
+						<div className="flex h-10 w-20 items-center">
+							<Skeleton className="h-[14px] w-[70px] rounded-xs" />
+						</div>
+						<div className="flex gap-1">
+							<EpisodesSkeletonRow amount={10} />
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

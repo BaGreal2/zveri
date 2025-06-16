@@ -23,7 +23,7 @@ const EpisodesShots = ({ seriesId, numberOfEpisodes }: Props) => {
 	const episodesQueries = useEpisodes(
 		seriesId,
 		1,
-		Math.min(numberOfEpisodes || 0, 32)
+		Math.min(numberOfEpisodes, 32)
 	);
 
 	const [carouselApi, setCarouselApi] = useState<CarouselApi>();
