@@ -1,27 +1,15 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
+import { RouterProvider } from 'react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import router from '@/lib/router';
+import './globals.css';
 
-const LoginComponent = React.lazy(() => import('./views/auth/login/index.tsx'));
-const RegisterComponent = React.lazy(
-	() => import('./views/auth/register/index.tsx')
-);
-const HomeComponent = React.lazy(() => import('./views/home/index.tsx'));
-const AuthLayoutComponent = React.lazy(() => import('./views/auth/Layout.tsx'));
+const queryClient = new QueryClient();
 
 const App = () => {
 	return (
-		<BrowserRouter>
-			<Suspense fallback={<div>Loading...</div>}>
-				<Routes>
-					<Route path="/home" element={<HomeComponent />} />
-					<Route element={<AuthLayoutComponent />}>
-						<Route path="/login" element={<LoginComponent />} />
-						<Route path="/register" element={<RegisterComponent />} />
-					</Route>
-					<Route path="*" element={<Navigate to="/home" />} />
-				</Routes>
-			</Suspense>
-		</BrowserRouter>
+		<QueryClientProvider client={queryClient}>
+			<RouterProvider router={router} />
+		</QueryClientProvider>
 	);
 };
 
