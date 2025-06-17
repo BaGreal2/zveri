@@ -23,8 +23,7 @@ const links = [
 	{
 		to: 'events',
 		label: 'Events'
-	},
-	
+	}
 ];
 
 const Header = () => {
