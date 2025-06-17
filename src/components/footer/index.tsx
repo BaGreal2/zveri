@@ -27,11 +27,11 @@ const footerLinks = [
 	},
 	{
 		to: '/privacy-policy',
-		label: 'Privacy policy'
+		label: 'Privacy Policy'
 	},
 	{
 		to: '/terms-of-use',
-		label: 'Terms of use'
+		label: 'Terms of Use'
 	}
 ];
 
