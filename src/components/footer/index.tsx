@@ -24,6 +24,14 @@ const footerLinks = [
 	{
 		to: '/about-us',
 		label: 'About'
+	},
+	{
+		to: '/privacy-policy',
+		label: 'Privacy policy'
+	},
+	{
+		to: '/terms-of-use',
+		label: 'Terms of use'
 	}
 ];
 
