@@ -32,7 +32,14 @@ const EpisodesTable = ({ seriesId, numberOfSeasons }: Props) => {
 							) : seasonQuery.data.episodes.length > 0 ? (
 								Array.from({ length: maxEpisodeCount }).map((_, i) => {
 									const episode = seasonQuery.data.episodes[i];
-									if (!episode) {
+
+									const episodeVoteValue = (episode?.vote_average || 0) / 10;
+									const hue = episodeVoteValue * 120;
+									const color = `hsl(${hue}, 40%, 40%)`;
+
+									const voteFixed = episode?.vote_average.toFixed(1);
+
+									if (!episode || voteFixed === '0.0') {
 										return (
 											<span
 												key={i}
@@ -42,12 +49,6 @@ const EpisodesTable = ({ seriesId, numberOfSeasons }: Props) => {
 											</span>
 										);
 									}
-
-									const episodeVoteValue = (episode.vote_average || 0) / 10;
-									const hue = episodeVoteValue * 120;
-									const color = `hsl(${hue}, 40%, 40%)`;
-
-									const voteFixed = episode.vote_average.toFixed(1);
 
 									return (
 										<span
