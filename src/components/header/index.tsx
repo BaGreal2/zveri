@@ -23,10 +23,6 @@ const links = [
 	{
 		to: 'events',
 		label: 'Events'
-	},
-	{
-		to: '/about',
-		label: 'About'
 	}
 ];
 

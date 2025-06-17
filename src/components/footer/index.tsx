@@ -23,7 +23,7 @@ const footerLinks = [
 	},
 	{
 		to: '/about-us',
-		label: 'About Us'
+		label: 'About'
 	}
 ];
 
