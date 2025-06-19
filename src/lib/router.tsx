@@ -10,6 +10,8 @@ const RegisterPage = React.lazy(() => import('../views/auth/register'));
 const ProfilePage = React.lazy(() => import('../views/profile'));
 const HomePage = React.lazy(() => import('../views/home'));
 const SeriesDetailsPage = React.lazy(() => import('../views/series-details'));
+const DiscoverPage = React.lazy(() => import('../views/discover'));
+
 const SeriesDetailsSkeleton = React.lazy(
 	() => import('../views/series-details/widgets/skeleton')
 );
@@ -60,6 +62,14 @@ const router = createBrowserRouter([
 				Component: () => (
 					<React.Suspense fallback={<SeriesDetailsSkeleton />}>
 						<PrivateRoute element={<SeriesDetailsPage />} />
+					</React.Suspense>
+				)
+			},
+			{
+				path: 'discover',
+				Component: () => (
+					<React.Suspense fallback={<Loading />}>
+						<PrivateRoute element={<DiscoverPage />} />
 					</React.Suspense>
 				)
 			},

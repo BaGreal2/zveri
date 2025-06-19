@@ -1,17 +1,19 @@
 import StarEmptyIcon from '@/icons/star-empty.svg?react';
 import StarFillIcon from '@/icons/star-fill.svg?react';
 import TextFade from '@/components/ui/text-fade';
+import { cn } from '@/lib/utils';
 
 interface Props {
 	rating: number;
 	voteCount: number;
+	className?: string;
 }
 
-const Rating = ({ rating, voteCount }: Props) => {
+const Rating = ({ rating, voteCount, className }: Props) => {
 	const normalizedRating = Math.min(rating / 2, 5);
 
 	return (
-		<div className="fade-in-top flex items-center gap-3.5">
+		<div className={cn('fade-in-top flex items-center gap-3.5', className)}>
 			<TextFade className="text-[32px] leading-[32px] font-bold">
 				{rating.toFixed(1)}
 			</TextFade>
