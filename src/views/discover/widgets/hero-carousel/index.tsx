@@ -22,7 +22,8 @@ const HeroCarousel = () => {
 		queryFn: ({ pageParam = 1 }) => getDiscoverSeries(pageParam),
 		initialPageParam: 1,
 		getNextPageParam: (last) =>
-			last.page < last.total_pages ? last.page + 1 : undefined
+			last.page < last.total_pages ? last.page + 1 : undefined,
+		staleTime: 1000 * 60 * 5
 	});
 
 	const topSeries =
@@ -34,7 +35,7 @@ const HeroCarousel = () => {
 		api.on('select', () => setCurrent(api.selectedScrollSnap()));
 	}, [api]);
 
-	if (discoverQuery.isLoading) {
+	if (discoverQuery.isFetching || discoverQuery.isLoading) {
 		return <HeroSkeleton className="-mt-6" />;
 	}
 

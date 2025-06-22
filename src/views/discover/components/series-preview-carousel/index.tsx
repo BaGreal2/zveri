@@ -29,10 +29,11 @@ const SeriesPreviewCarousel = ({ category }: Props) => {
 
 	const rowHovered = isHovered || hoverCardHovered;
 
-	const { data, isLoading, isError } = useQuery({
+	const { data, isLoading, isFetching, isError } = useQuery({
 		queryKey: ['tv-row', category],
 		queryFn: ({ signal }: QueryFunctionContext) =>
-			getTvSeriesByCategory(category, 1, signal as AbortSignal)
+			getTvSeriesByCategory(category, 1, signal as AbortSignal),
+    staleTime: 1000 * 60 * 5,
 	});
 
 	useEffect(() => {
@@ -54,7 +55,7 @@ const SeriesPreviewCarousel = ({ category }: Props) => {
 		};
 	}, [carouselApi]);
 
-	if (isLoading || !data) {
+	if (isLoading || isFetching || !data) {
 		return <CarouselSkeleton />;
 	}
 
