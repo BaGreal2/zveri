@@ -8,15 +8,17 @@ import {
 	HoverCardContent
 } from '@/components/ui/hover-card';
 import TextFade from '@/components/ui/text-fade';
-import { getTMDBImageUrl } from '@/lib/utils';
+import { cn, getTMDBImageUrl } from '@/lib/utils';
 import GenresPreview from './genres-preview';
 
 interface Props {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	series: any;
+	setHoverCardHovered: (hovered: boolean) => void;
+	rowHovered: boolean;
 }
 
-const SeriesCard = ({ series }: Props) => {
+const SeriesCard = ({ series, setHoverCardHovered, rowHovered }: Props) => {
 	const { data: genreMap } = useTvGenres();
 
 	const genreNames = (series.genre_ids || [])
@@ -31,7 +33,12 @@ const SeriesCard = ({ series }: Props) => {
 					to={`/series/${series.id}`}
 					className="group flex h-[180px] w-[300px]"
 				>
-					<div className="h-full w-full overflow-hidden rounded-[18px] border-2 border-white/15 backdrop-blur-3xl transition-all duration-200 ease-out group-hover:opacity-0 group-hover/row:opacity-50">
+					<div
+						className={cn(
+							'h-full w-full overflow-hidden rounded-[18px] border-2 border-white/15 backdrop-blur-3xl transition-all duration-600 group-hover:opacity-0',
+							rowHovered && 'opacity-50'
+						)}
+					>
 						<img
 							src={getTMDBImageUrl(series.backdrop_path, 'w500')}
 							alt={series.name}
@@ -47,7 +54,9 @@ const SeriesCard = ({ series }: Props) => {
 				sideOffset={0}
 				collisionPadding={0}
 				avoidCollisions={false}
-				className="data-[state=open]:animate-pop-in data-[state=closed]:animate-pop-out z-20 min-h-[345px] w-[390px] origin-center translate-y-[95%] overflow-hidden rounded-[24px] border-2 border-white/15 bg-black/80 p-3 drop-shadow-[0_6px_12px_rgba(0,0,0,0.45)] backdrop-blur-2xl"
+				className="pointer-events-none z-20 min-h-[345px] w-[390px] origin-center translate-y-[95%] overflow-hidden rounded-[24px] border-2 border-white/15 bg-black/80 p-3 drop-shadow-[0_6px_12px_rgba(0,0,0,0.45)] backdrop-blur-2xl"
+				onPointerEnter={() => setHoverCardHovered(true)}
+				onPointerLeave={() => setHoverCardHovered(false)}
 			>
 				<img
 					src={getTMDBImageUrl(series.backdrop_path, 'w500')}

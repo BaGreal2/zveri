@@ -6,7 +6,7 @@ import SeriesCategory from './widgets/series-category';
 
 const Discover = () => {
 	return (
-		<div className="w-full overflow-x-hidden">
+		<div className="w-full overflow-x-hidden pb-[140px]">
 			<div className="mx-auto flex w-full max-w-[1440px] flex-col items-center overflow-visible pt-[165px]">
 				<SectionTitle
 					categoryName="Popular Series"

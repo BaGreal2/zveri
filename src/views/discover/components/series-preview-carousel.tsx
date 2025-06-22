@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import type { QueryFunctionContext } from '@tanstack/react-query';
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
@@ -17,6 +18,11 @@ interface Props {
 }
 
 const SeriesPreviewCarousel = ({ category }: Props) => {
+	const [isHovered, setIsHovered] = useState(false);
+	const [hoverCardHovered, setHoverCardHovered] = useState(false);
+
+	const rowHovered = isHovered || hoverCardHovered;
+
 	const { data, isFetching, isError } = useQuery({
 		queryKey: ['tv-row', category],
 		queryFn: ({ signal }: QueryFunctionContext) =>
@@ -30,14 +36,23 @@ const SeriesPreviewCarousel = ({ category }: Props) => {
 			opts={{ align: 'start', dragFree: true, loop: false }}
 			plugins={[wheelPlugin]}
 		>
-			<CarouselContent className="group/row mr-8 -ml-8" containerClassName="overflow-x-clip overflow-y-visible">
+			<CarouselContent
+				onPointerEnter={() => setIsHovered(true)}
+				onPointerLeave={() => setIsHovered(false)}
+				className="mr-8 -ml-8"
+				containerClassName="overflow-x-clip overflow-y-visible"
+			>
 				{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
 				{data.results.map((series: any) => (
 					<CarouselItem
 						key={series.id}
 						className="group relative ml-[18px] basis-[300px] hover:z-10"
 					>
-						<SeriesCard series={series} />
+						<SeriesCard
+							series={series}
+							setHoverCardHovered={setHoverCardHovered}
+							rowHovered={rowHovered}
+						/>
 					</CarouselItem>
 				))}
 			</CarouselContent>

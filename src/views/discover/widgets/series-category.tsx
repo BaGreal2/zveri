@@ -16,8 +16,6 @@ const SeriesCategory = ({ name, category }: Props) => {
 				<div className="h-px grow bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 			</div>
 			<SeriesPreviewCarousel category={category} />
-			<div className="absolute top-1/2 left-0 z-10 h-[260px] w-[calc((100vw-1440px)/2)] -translate-x-full -translate-y-1/2 bg-black" />
-			<div className="absolute top-1/2 right-0 z-10 h-[260px] w-[calc((100vw-1440px)/2)] translate-x-full -translate-y-1/2 bg-black" />
 		</div>
 	);
 };
