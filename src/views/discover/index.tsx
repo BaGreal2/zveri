@@ -1,13 +1,17 @@
 'use client';
 
 import { useEffect } from 'react';
-import SectionTitle from './components/section-title';
+import { useNavigate } from 'react-router';
+import SectionTitle from '@/components/section-title';
 import HeroCarousel from './widgets/hero-carousel';
 import SeriesCategory from './widgets/series-category';
 
 const Discover = () => {
+	const navigate = useNavigate();
 	useEffect(() => {
 		document.title = 'Discover | Seasons';
+		// TODO: Add condition to check if user has selected a season today
+		navigate('/season-select');
 	}, []);
 
 	return (

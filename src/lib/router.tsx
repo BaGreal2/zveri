@@ -11,6 +11,7 @@ const ProfilePage = React.lazy(() => import('../views/profile'));
 const HomePage = React.lazy(() => import('../views/home'));
 const SeriesDetailsPage = React.lazy(() => import('../views/series-details'));
 const DiscoverPage = React.lazy(() => import('../views/discover'));
+const SeasonSelectPage = React.lazy(() => import('../views/season-select'));
 
 const SeriesDetailsPageSkeleton = React.lazy(
 	() => import('../views/series-details/widgets/skeleton')
@@ -73,6 +74,14 @@ const router = createBrowserRouter([
 				Component: () => (
 					<React.Suspense fallback={<DiscoverPageSkeleton />}>
 						<PrivateRoute element={<DiscoverPage />} />
+					</React.Suspense>
+				)
+			},
+			{
+				path: 'season-select',
+				Component: () => (
+					<React.Suspense fallback={<Loading />}>
+						<PrivateRoute element={<SeasonSelectPage />} />
 					</React.Suspense>
 				)
 			},
