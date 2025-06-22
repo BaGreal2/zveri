@@ -115,7 +115,7 @@ const SeriesCard = ({
 						genres={genreNames}
 						className="fade-in-top my-[13px] opacity-0"
 						style={{
-							animationDelay: '100ms'
+							animationDelay: '150ms'
 						}}
 					/>
 				</div>
