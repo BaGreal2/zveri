@@ -30,10 +30,13 @@ const SeriesPreviewCarousel = ({ category }: Props) => {
 			opts={{ align: 'start', dragFree: true, loop: false }}
 			plugins={[wheelPlugin]}
 		>
-			<CarouselContent className="mr-8 -ml-8">
+			<CarouselContent className="group/row mr-8 -ml-8" containerClassName="overflow-x-clip overflow-y-visible">
 				{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
 				{data.results.map((series: any) => (
-					<CarouselItem key={series.id} className="ml-[18px] basis-[300px]">
+					<CarouselItem
+						key={series.id}
+						className="group relative ml-[18px] basis-[300px] hover:z-10"
+					>
 						<SeriesCard series={series} />
 					</CarouselItem>
 				))}
