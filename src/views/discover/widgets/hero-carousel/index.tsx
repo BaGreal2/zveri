@@ -9,8 +9,9 @@ import {
 } from '@/components/ui/carousel';
 import type { CarouselApi } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
-import getDiscoverSeries from '../actions/get-discover-series';
-import SeriesBanner from '../components/series-banner';
+import getDiscoverSeries from '../../actions/get-discover-series';
+import SeriesBanner from '../../components/series-banner';
+import HeroSkeleton from '../skeleton/components/hero-skeleton';
 
 const HeroCarousel = () => {
 	const [api, setApi] = useState<CarouselApi>();
@@ -32,6 +33,10 @@ const HeroCarousel = () => {
 		setCurrent(api.selectedScrollSnap());
 		api.on('select', () => setCurrent(api.selectedScrollSnap()));
 	}, [api]);
+
+	if (discoverQuery.isLoading) {
+		return <HeroSkeleton className="-mt-6" />;
+	}
 
 	const len = topSeries.length;
 	const prev = (current - 1 + len) % len;

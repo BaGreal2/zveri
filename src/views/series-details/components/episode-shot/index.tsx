@@ -19,7 +19,7 @@ const EpisodeShot = ({ name, stillPath, onClick, style }: Props) => {
 		>
 			<img
 				src={getTMDBImageUrl(stillPath, 'w92')}
-				className="pointer-events-none absolute top-0 left-0 size-full scale-105 object-cover blur-lg transition-opacity duration-500"
+				className="pointer-events-none absolute top-0 left-0 size-full scale-105 object-cover blur-xs transition-opacity duration-500"
 				aria-hidden="true"
 			/>
 			<img

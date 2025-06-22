@@ -33,24 +33,22 @@ const Home = () => {
 		<div className="overflow-x-hidden pt-[155px]">
 			<ul className="mx-auto flex max-w-[1440px] flex-wrap justify-center gap-5 px-4">
 				{query.data?.pages.map((page) =>
-					page.results.map((series: unknown) => (
-						// @ts-expect-error No type for series
+					page.results.map((series) => (
 						<li key={series.id}>
-							{/* @ts-expect-error No type for series */}
 							<NavLink to={`/series/${series.id}`}>
 								<div
 									className="fade-in-top group flex w-64 flex-col items-center gap-1 opacity-0"
 									style={{ animationDelay: `${Math.random() * 200}ms` }}
 								>
 									<div className="h-96 w-full overflow-hidden rounded-2xl border border-white/25 shadow-[0_0_10px_rgba(255,255,255,0.15)] transition-all duration-300 ease-in-out group-hover:scale-105 group-hover:shadow-[0_0_55px_rgba(255,255,255,0.2)]">
-										<img
-											// @ts-expect-error No type for series
-											src={getTMDBImageUrl(series.poster_path, 'w500')}
-											className="size-full object-cover"
-										/>
+										{series.poster_path && (
+											<img
+												src={getTMDBImageUrl(series.poster_path, 'w500')}
+												className="size-full object-cover"
+											/>
+										)}
 									</div>
 									<TextFade className="text-center text-lg font-bold">
-										{/* @ts-expect-error No type for series */}
 										{series.name}
 									</TextFade>
 								</div>

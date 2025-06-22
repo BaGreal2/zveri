@@ -107,7 +107,6 @@ const SeriesDetails = () => {
 					seriesId={seriesId}
 					numberOfEpisodes={
 						seriesQuery.data.seasons.find(
-							// @ts-expect-error No type for season
 							(season) => season.season_number === 1
 						)?.episode_count || 0
 					}

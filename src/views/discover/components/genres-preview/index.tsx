@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import { cn } from '@/lib/utils';
-import GenreBadge from './genre-badge';
+import GenreBadge from '../genre-badge';
 
 interface Props {
 	genres: { name: string }[];

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { FaPlay } from 'react-icons/fa';
 import { IoIosInformationCircle } from 'react-icons/io';
 import { NavLink } from 'react-router';
@@ -7,25 +8,27 @@ import Title from '@/views/series-details/components/title';
 import Genres from '@/views/series-details/widgets/genres';
 import TextFade from '@/components/ui/text-fade';
 import { getTMDBImageUrl } from '@/lib/utils';
+import type { Genre, Series } from '@/types/tmdb';
 
 interface Props {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	series: any;
+	series: Series;
 }
 
 export default function SeriesBanner({ series }: Props) {
+	const [highResLoaded, setHighResLoaded] = useState(false);
+
 	const { data: genreMap } = useTvGenres();
 
 	const genreNames = (series.genre_ids || [])
-		.map((id: number) => ({
-			name: genreMap?.[id]
+		.map((id) => ({
+			id,
+			name: genreMap?.[id] ?? 'Unknown Genre'
 		}))
-		// @ts-expect-error no genre type
-		.filter((genre) => genre.name);
+		.filter((genre: Genre) => genre.name);
 
 	return (
 		<div className="relative aspect-[244/100] w-full overflow-hidden rounded-4xl border-2 border-white/20">
-			<div className="relative z-20 flex size-full flex-col p-[140px]">
+			<div className="relative z-30 flex size-full flex-col p-[140px]">
 				<Genres genres={genreNames} className="mb-[57px]" />
 				<div className="mb-[27px] flex flex-col gap-3.5">
 					<Title
@@ -59,12 +62,23 @@ export default function SeriesBanner({ series }: Props) {
 					className="absolute top-[120px] right-[140px]"
 				/>
 			</div>
-			<div className="absolute top-0 left-0 z-10 size-full bg-gradient-to-r from-black/90 to-black/20 to-80%" />
-			<img
-				src={getTMDBImageUrl(series.backdrop_path, 'original')}
-				alt={series.name}
-				className="absolute top-0 left-0 z-0 size-full object-cover"
-			/>
+			<div className="absolute top-0 left-0 z-20 size-full bg-gradient-to-r from-black/90 to-black/20 to-80%" />
+			{series.backdrop_path && (
+				<>
+					<img
+						src={getTMDBImageUrl(series.backdrop_path, 'w92')}
+						className="absolute top-0 left-0 z-0 size-full object-cover blur-lg"
+						aria-hidden="true"
+					/>
+					<img
+						src={getTMDBImageUrl(series.backdrop_path, 'original')}
+						alt={series.name}
+						onLoad={() => setHighResLoaded(true)}
+						style={{ opacity: highResLoaded ? 1 : 0 }}
+						className="absolute top-0 left-0 z-10 size-full object-cover"
+					/>
+				</>
+			)}
 		</div>
 	);
 }

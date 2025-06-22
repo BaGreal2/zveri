@@ -21,7 +21,7 @@ const Discover = () => {
 					className="fade-in-top relative z-10 mb-5 opacity-0"
 					style={{ animationDelay: '300ms' }}
 				/>
-				<div className="flex flex-col gap-10 w-full">
+				<div className="flex w-full flex-col gap-10">
 					<SeriesCategory name="Trending Series" category="popular" />
 					<SeriesCategory name="Top Rated Series" category="top_rated" />
 					<SeriesCategory name="Airing Today" category="airing_today" />

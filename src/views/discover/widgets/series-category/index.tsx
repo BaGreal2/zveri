@@ -1,5 +1,5 @@
-import SeriesPreviewCarousel from '../components/series-preview-carousel';
-import type { TvCategory } from '../types/tv-category';
+import SeriesPreviewCarousel from '../../components/series-preview-carousel';
+import type { TvCategory } from '../../types/tv-category';
 
 interface Props {
 	name: string;

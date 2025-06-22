@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import type { CSSProperties } from 'react';
 import { NavLink } from 'react-router';
 import { useTvGenres } from '@/hooks/useTVGenres';
 import { format } from 'date-fns';
@@ -9,21 +11,29 @@ import {
 } from '@/components/ui/hover-card';
 import TextFade from '@/components/ui/text-fade';
 import { cn, getTMDBImageUrl } from '@/lib/utils';
-import GenresPreview from './genres-preview';
+import type { Series } from '@/types/tmdb';
+import GenresPreview from '../genres-preview';
 
 interface Props {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	series: any;
+	series: Series;
 	setHoverCardHovered: (hovered: boolean) => void;
 	rowHovered: boolean;
+	className?: string;
+	style?: CSSProperties;
 }
 
-const SeriesCard = ({ series, setHoverCardHovered, rowHovered }: Props) => {
+const SeriesCard = ({
+	series,
+	setHoverCardHovered,
+	rowHovered,
+	className,
+	style
+}: Props) => {
+	const [highResLoaded, setHighResLoaded] = useState(false);
 	const { data: genreMap } = useTvGenres();
 
 	const genreNames = (series.genre_ids || [])
-		.map((id: number) => ({ name: genreMap?.[id] }))
-		// @ts-expect-error no genre type
+		.map((id) => ({ name: genreMap?.[id] ?? 'Unknown Genre' }))
 		.filter((g) => g.name);
 
 	return (
@@ -31,7 +41,8 @@ const SeriesCard = ({ series, setHoverCardHovered, rowHovered }: Props) => {
 			<HoverCardTrigger asChild>
 				<NavLink
 					to={`/series/${series.id}`}
-					className="group flex h-[180px] w-[300px]"
+					className={cn('group flex h-[180px] w-[300px]', className)}
+					style={style}
 				>
 					<div
 						className={cn(
@@ -39,11 +50,22 @@ const SeriesCard = ({ series, setHoverCardHovered, rowHovered }: Props) => {
 							rowHovered && 'opacity-50'
 						)}
 					>
-						<img
-							src={getTMDBImageUrl(series.backdrop_path, 'w500')}
-							alt={series.name}
-							className="aspect-[15/9] w-full"
-						/>
+						{series.backdrop_path && (
+							<>
+								<img
+									src={getTMDBImageUrl(series.backdrop_path, 'w92')}
+									className="absolute top-0 left-0 aspect-[15/9] w-full blur-xs"
+									aria-hidden="true"
+								/>
+								<img
+									src={getTMDBImageUrl(series.backdrop_path, 'w500')}
+									onLoad={() => setHighResLoaded(true)}
+									alt={series.name}
+									style={{ opacity: highResLoaded ? 1 : 0 }}
+									className="relative z-10 aspect-[15/9] w-full"
+								/>
+							</>
+						)}
 					</div>
 				</NavLink>
 			</HoverCardTrigger>
@@ -58,11 +80,13 @@ const SeriesCard = ({ series, setHoverCardHovered, rowHovered }: Props) => {
 				onPointerEnter={() => setHoverCardHovered(true)}
 				onPointerLeave={() => setHoverCardHovered(false)}
 			>
-				<img
-					src={getTMDBImageUrl(series.backdrop_path, 'w500')}
-					alt={series.name}
-					className="aspect-[15/9] w-full rounded-[18px]"
-				/>
+				{series.backdrop_path && (
+					<img
+						src={getTMDBImageUrl(series.backdrop_path, 'w500')}
+						alt={series.name}
+						className="aspect-[15/9] w-full rounded-[18px]"
+					/>
+				)}
 
 				<div className="px-3.5 pt-5">
 					<TextFade className="fade-in-top text-[20px] leading-[20px] font-bold">
