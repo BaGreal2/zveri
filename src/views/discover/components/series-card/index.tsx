@@ -33,8 +33,11 @@ const SeriesCard = ({
 	const { data: genreMap } = useTvGenres();
 
 	const genreNames = (series.genre_ids || [])
-		.map((id) => ({ name: genreMap?.[id] ?? 'Unknown Genre' }))
-		.filter((g) => g.name);
+		.map((id) => ({ name: genreMap?.[id] }))
+		.filter(
+			(genre): genre is { id: number; name: string } =>
+				typeof genre.name === 'string'
+		);
 
 	return (
 		<HoverCard openDelay={120} closeDelay={120}>

@@ -8,7 +8,7 @@ import Title from '@/views/series-details/components/title';
 import Genres from '@/views/series-details/widgets/genres';
 import TextFade from '@/components/ui/text-fade';
 import { getTMDBImageUrl } from '@/lib/utils';
-import type { Genre, Series } from '@/types/tmdb';
+import type { Series } from '@/types/tmdb';
 
 interface Props {
 	series: Series;
@@ -22,9 +22,12 @@ export default function SeriesBanner({ series }: Props) {
 	const genreNames = (series.genre_ids || [])
 		.map((id) => ({
 			id,
-			name: genreMap?.[id] ?? 'Unknown Genre'
+			name: genreMap?.[id]
 		}))
-		.filter((genre: Genre) => genre.name);
+		.filter(
+			(genre): genre is { id: number; name: string } =>
+				typeof genre.name === 'string'
+		);
 
 	return (
 		<div className="relative aspect-[244/100] w-full overflow-hidden rounded-4xl border-2 border-white/20">
