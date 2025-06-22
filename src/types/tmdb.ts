@@ -4,7 +4,7 @@ export interface Genre {
 }
 
 export interface Series {
-	id: number;
+	id: string;
 	name: string;
 	overview: string;
 	poster_path: string | null;
@@ -28,6 +28,12 @@ export interface SeriesDetails extends Series {
 export interface Season {
 	season_number: number;
 	episode_count: number;
+}
+
+export interface Trailer {
+	key: string;
+	site: string;
+	type: string;
 }
 
 export interface TMDBPaginatedResponse<T> {

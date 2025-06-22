@@ -1,17 +1,10 @@
 import { useMemo, useState } from 'react';
-import { createPortal } from 'react-dom';
 import { FaPlay, FaRegStar } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
+import TrailerModal from '@/components/trailer-modal';
 import TextFade from '@/components/ui/text-fade';
-import { modalRoot } from '@/lib/roots';
-import { cn, getTMDBImageUrl } from '@/lib/utils';
+import { getTMDBImageUrl } from '@/lib/utils';
 import getSeriesTrailer from '../../actions/get-series-trailer';
-
-interface Trailer {
-	key: string;
-	site: string;
-	type: string;
-}
 
 interface Props {
 	seriesId: string;
@@ -26,28 +19,23 @@ const Poster = ({ seriesId, posterPath, status }: Props) => {
 	});
 
 	const [highResLoaded, setHighResLoaded] = useState(false);
-	const [showModal, setShowModal] = useState(false);
-	const [isOpen, setIsOpen] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const trailer = useMemo(() => {
 		const trailers = trailerQuery.data?.results ?? [];
 
 		return (
-			trailers.find(
-				(t: Trailer) => t.site === 'YouTube' && t.type === 'Trailer'
-			) ?? null
+			trailers.find((t) => t.site === 'YouTube' && t.type === 'Trailer') ?? null
 		);
 	}, [trailerQuery.data]);
 
 	const openModal = () => {
 		if (!trailer) return;
-		setShowModal(true);
-		requestAnimationFrame(() => setIsOpen(true));
+		setIsModalOpen(true);
 	};
 
 	const closeModal = () => {
-		setIsOpen(false);
-		setTimeout(() => setShowModal(false), 300);
+		setIsModalOpen(false);
 	};
 
 	return (
@@ -98,35 +86,11 @@ const Poster = ({ seriesId, posterPath, status }: Props) => {
 				)}
 			</div>
 
-			{showModal &&
-				modalRoot &&
-				createPortal(
-					<div className="fixed inset-0 z-50 flex items-center justify-center">
-						<button
-							onClick={closeModal}
-							className={cn(
-								'absolute inset-0 bg-black/70 backdrop-blur-md transition-opacity duration-300',
-								isOpen ? 'opacity-100' : 'opacity-0'
-							)}
-						/>
-
-						<div
-							className={cn(
-								'relative z-10 aspect-video w-[min(90%,1300px)] overflow-hidden rounded-3xl shadow-[0_0_20px_rgba(0,0,0,0.6)] transition-all duration-300',
-								isOpen ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
-							)}
-						>
-							<iframe
-								src={`https://www.youtube.com/embed/${trailer?.key}?autoplay=1&controls=1&rel=0`}
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-								allowFullScreen
-								className="h-full w-full"
-								title="Trailer"
-							/>
-						</div>
-					</div>,
-					modalRoot
-				)}
+			<TrailerModal
+				trailerKey={trailer?.key ?? ''}
+				isOpen={isModalOpen}
+				onClose={closeModal}
+			/>
 		</>
 	);
 };

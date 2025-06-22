@@ -99,14 +99,14 @@ const SeriesCard = ({
 					<div className="mt-0.5 flex gap-2.5">
 						<span
 							className="fade-in-top text-white/65 opacity-0"
-							style={{ animationDelay: '150ms' }}
+							style={{ animationDelay: '50ms' }}
 						>
 							({format(series.first_air_date, 'yyyy')})
 						</span>
 						<Rating
 							rating={series.vote_average}
 							className="opacity-0"
-							style={{ animationDelay: '150ms' }}
+							style={{ animationDelay: '50ms' }}
 							hideNumber
 						/>
 					</div>
@@ -115,7 +115,7 @@ const SeriesCard = ({
 						genres={genreNames}
 						className="fade-in-top my-[13px] opacity-0"
 						style={{
-							animationDelay: '300ms'
+							animationDelay: '100ms'
 						}}
 					/>
 				</div>
