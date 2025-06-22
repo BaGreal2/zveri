@@ -1,10 +1,15 @@
 'use client';
 
+import { useEffect } from 'react';
 import SectionTitle from './components/section-title';
 import HeroCarousel from './widgets/hero-carousel';
 import SeriesCategory from './widgets/series-category';
 
 const Discover = () => {
+	useEffect(() => {
+		document.title = 'Discover | Seasons';
+	}, []);
+
 	return (
 		<div className="w-full overflow-x-hidden pb-[140px]">
 			<div className="mx-auto flex w-full max-w-[1440px] flex-col items-center overflow-visible pt-[165px]">
