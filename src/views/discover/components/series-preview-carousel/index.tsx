@@ -8,7 +8,9 @@ import {
 	CarouselItem
 } from '@/components/ui/carousel';
 import type { CarouselApi } from '@/components/ui/carousel';
-import { getTvSeriesByCategory } from '../../actions/get-by-category-series';
+import seasonGenresMap from '@/lib/data/season-genres-map';
+import useSeasonsStore from '@/lib/store/seasons';
+import getTvSeriesByCategory from '../../actions/get-by-category-series';
 import type { TvCategory } from '../../types/tv-category';
 import CarouselSkeleton from '../../widgets/skeleton/components/carousel-skeleton';
 import SeriesCard from '../series-card';
@@ -29,11 +31,14 @@ const SeriesPreviewCarousel = ({ category }: Props) => {
 
 	const rowHovered = isHovered || hoverCardHovered;
 
+	const { currentSeason } = useSeasonsStore();
+	const genreIds = currentSeason ? seasonGenresMap[currentSeason] : [];
+
 	const { data, isLoading, isFetching, isError } = useQuery({
-		queryKey: ['tv-row', category],
+		queryKey: ['tv-row', category, genreIds, currentSeason],
 		queryFn: ({ signal }: QueryFunctionContext) =>
-			getTvSeriesByCategory(category, 1, signal as AbortSignal),
-    staleTime: 1000 * 60 * 5,
+			getTvSeriesByCategory(category, 1, genreIds, signal as AbortSignal),
+		staleTime: 1000 * 60 * 5
 	});
 
 	useEffect(() => {

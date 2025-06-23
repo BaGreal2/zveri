@@ -80,7 +80,7 @@ const SeasonSelect = () => {
 					</span>
 					<button
 						onClick={onDefaultDiscover}
-						className="fade-in-top flex h-14 cursor-pointer items-center justify-center gap-4 rounded-[20px] border border-white/15 bg-gradient-to-t from-white/15 to-white/10 px-6 py-[18px] opacity-0 backdrop-blur-3xl transition-all duration-300 ease-in-out hover:scale-105"
+						className="fade-in-top flex h-14 cursor-pointer items-center justify-center gap-4 rounded-[20px] border border-white/15 bg-gradient-to-t from-white/15 to-white/10 px-6 py-[18px] opacity-0 backdrop-blur-3xl transition-all duration-300 hover:bg-white/10"
 						style={{ animationDelay: '300ms' }}
 					>
 						<FaArrowRight className="size-[22px]" />

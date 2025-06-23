@@ -8,6 +8,8 @@ import {
 	CarouselPrevious
 } from '@/components/ui/carousel';
 import type { CarouselApi } from '@/components/ui/carousel';
+import seasonGenresMap from '@/lib/data/season-genres-map';
+import useSeasonsStore from '@/lib/store/seasons';
 import { cn } from '@/lib/utils';
 import getDiscoverSeries from '../../actions/get-discover-series';
 import SeriesBanner from '../../components/series-banner';
@@ -16,10 +18,13 @@ import HeroSkeleton from '../skeleton/components/hero-skeleton';
 const HeroCarousel = () => {
 	const [api, setApi] = useState<CarouselApi>();
 	const [current, setCurrent] = useState(0);
+	const { currentSeason } = useSeasonsStore();
+	const genreIds = currentSeason ? seasonGenresMap[currentSeason] : [];
 
 	const discoverQuery = useInfiniteQuery({
-		queryKey: ['discover-series'],
-		queryFn: ({ pageParam = 1 }) => getDiscoverSeries(pageParam),
+		queryKey: ['discover-series', genreIds],
+		queryFn: ({ pageParam = 1 }) =>
+			getDiscoverSeries(pageParam, 'vote_average', genreIds),
 		initialPageParam: 1,
 		getNextPageParam: (last) =>
 			last.page < last.total_pages ? last.page + 1 : undefined,

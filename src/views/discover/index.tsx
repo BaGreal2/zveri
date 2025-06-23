@@ -6,13 +6,16 @@ import SectionTitle from '@/components/section-title';
 import useSeasonsStore from '@/lib/store/seasons';
 import HeroCarousel from './widgets/hero-carousel';
 import SeriesCategory from './widgets/series-category';
+import SeasonSelectFloat from './widgets/season-select-float';
 
 const Discover = () => {
 	const navigate = useNavigate();
 	const { lastTimeSelected } = useSeasonsStore();
+
 	useEffect(() => {
 		document.title = 'Discover | Seasons';
 
+    console.log('lastTimeSelected', lastTimeSelected);
 		if (
 			!lastTimeSelected ||
 			new Date(lastTimeSelected).getDate() !== new Date().getDate()
@@ -44,6 +47,8 @@ const Discover = () => {
 					<SeriesCategory name="Trending This Week" category="trending_week" />
 				</div>
 			</div>
+
+      <SeasonSelectFloat />
 		</div>
 	);
 };

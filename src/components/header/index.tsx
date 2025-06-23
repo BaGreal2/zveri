@@ -62,7 +62,7 @@ const Header = () => {
 								<Icon
 									key={season}
 									className={cn(
-										'absolute -top-[12px] left-0 h-[96px] w-40 transition-all duration-300',
+										'absolute top-1/2 left-1/2 h-[114px] w-[180px] -translate-x-1/2 -translate-y-1/2 transition-all duration-300',
 										currentSeason === season &&
 											seasonsLocations.includes(location.pathname)
 											? 'opacity-100'
@@ -72,8 +72,11 @@ const Header = () => {
 							))}
 							<LogoIcon
 								className={cn(
-									'absolute top-0 left-0 h-[46px] w-40 transition-all duration-300',
-									!currentSeason ? 'opacity-100' : 'opacity-0'
+									'absolute top-1/2 left-1/2 h-[105px] w-40 -translate-x-1/2 -translate-y-1/2 transition-all duration-300',
+									!currentSeason ||
+										!seasonsLocations.includes(location.pathname)
+										? 'opacity-100'
+										: 'opacity-0'
 								)}
 							/>
 						</div>

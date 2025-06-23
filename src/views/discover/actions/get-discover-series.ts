@@ -7,9 +7,10 @@ const sortValueMap = {
 
 const getDiscoverSeries = async (
 	page: number = 1,
-	sort: keyof typeof sortValueMap = 'vote_average'
+	sort: keyof typeof sortValueMap = 'vote_average',
+	genreIds: number[]
 ) => {
-	const url = `https://api.themoviedb.org/3/discover/tv?include_null_first_air_dates=false&language=en-US&page=${page}&sort_by=${sortValueMap[sort]}&vote_count.gte=100`;
+	const url = `https://api.themoviedb.org/3/discover/tv?include_null_first_air_dates=false&language=en-US&page=${page}&sort_by=${sortValueMap[sort]}&vote_count.gte=100&with_genres=${genreIds.join('|')}`;
 	const response = await tmdbFetcher(url);
 
 	return response;

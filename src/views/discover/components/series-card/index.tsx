@@ -97,12 +97,14 @@ const SeriesCard = ({
 					</TextFade>
 
 					<div className="mt-0.5 flex gap-2.5">
-						<span
-							className="fade-in-top text-white/65 opacity-0"
-							style={{ animationDelay: '50ms' }}
-						>
-							({format(series.first_air_date, 'yyyy')})
-						</span>
+						{series.first_air_date && (
+							<span
+								className="fade-in-top text-white/65 opacity-0"
+								style={{ animationDelay: '50ms' }}
+							>
+								({format(new Date(series.first_air_date), 'yyyy')})
+							</span>
+						)}
 						<Rating
 							rating={series.vote_average}
 							className="opacity-0"
