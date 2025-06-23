@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
 import useEmblaCarousel, {
 	type UseEmblaCarouselType
 } from 'embla-carousel-react';
@@ -129,13 +129,21 @@ function Carousel({
 	);
 }
 
-function CarouselContent({ className, ...props }: React.ComponentProps<'div'>) {
+type CarouselContentProps = React.ComponentProps<'div'> & {
+	containerClassName?: string;
+};
+
+function CarouselContent({
+	containerClassName,
+	className,
+	...props
+}: CarouselContentProps) {
 	const { carouselRef, orientation } = useCarousel();
 
 	return (
 		<div
 			ref={carouselRef}
-			className="overflow-hidden"
+			className={cn('overflow-hidden', containerClassName)}
 			data-slot="carousel-content"
 		>
 			<div
@@ -182,7 +190,7 @@ function CarouselPrevious({
 			variant={variant}
 			size={size}
 			className={cn(
-				'absolute size-8 rounded-full',
+				'absolute size-14 cursor-pointer rounded-full border-2 border-white/15 bg-white/15 p-0 drop-shadow-[0_2px_2px_rgba(0,0,0,0.35)] backdrop-blur-2xl transition-transform duration-300 ease-in-out hover:scale-105',
 				orientation === 'horizontal'
 					? 'top-1/2 -left-12 -translate-y-1/2'
 					: '-top-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -192,7 +200,7 @@ function CarouselPrevious({
 			onClick={scrollPrev}
 			{...props}
 		>
-			<FaArrowLeft />
+			<FaArrowLeft className="size-[22px]" />
 			<span className="sr-only">Previous slide</span>
 		</Button>
 	);
@@ -212,7 +220,7 @@ function CarouselNext({
 			variant={variant}
 			size={size}
 			className={cn(
-				'absolute size-8 rounded-full',
+				'absolute size-14 cursor-pointer rounded-full border-2 border-white/15 bg-white/15 p-0 drop-shadow-[0_2px_2px_rgba(0,0,0,0.35)] backdrop-blur-2xl transition-transform duration-300 ease-in-out hover:scale-105',
 				orientation === 'horizontal'
 					? 'top-1/2 -right-12 -translate-y-1/2'
 					: '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -222,7 +230,7 @@ function CarouselNext({
 			onClick={scrollNext}
 			{...props}
 		>
-			<FaArrowRight />
+			<FaArrowRight className="size-[22px]" />
 			<span className="sr-only">Next slide</span>
 		</Button>
 	);

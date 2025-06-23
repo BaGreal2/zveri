@@ -11,8 +11,13 @@ interface Props {
 const EpisodesTable = ({ seriesId, numberOfSeasons }: Props) => {
 	const seasonsQueries = useSeasons(seriesId, numberOfSeasons);
 	const maxEpisodeCount = useMemo(() => {
+		if (
+			seasonsQueries.length === 0 ||
+			seasonsQueries.some((query) => query.isFetching)
+		)
+			return 0;
+
 		return Math.max(
-			10,
 			...seasonsQueries.filter((q) => q.data).map((q) => q.data.episodes.length)
 		);
 	}, [seasonsQueries]);
@@ -20,7 +25,7 @@ const EpisodesTable = ({ seriesId, numberOfSeasons }: Props) => {
 	return (
 		<div className="mt-[30px] max-w-full overflow-scroll">
 			<div className="flex flex-col gap-1">
-				<EpisodesNumberRow amount={maxEpisodeCount} />
+				<EpisodesNumberRow amount={maxEpisodeCount || 10} />
 				{seasonsQueries.map((seasonQuery, index) => (
 					<div className="flex items-center gap-2" key={index}>
 						<span className="w-20 shrink-0 text-sm font-semibold">
@@ -28,9 +33,9 @@ const EpisodesTable = ({ seriesId, numberOfSeasons }: Props) => {
 						</span>
 						<div className="flex gap-1">
 							{seasonQuery.isLoading || !seasonQuery.data ? (
-								<EpisodesSkeletonRow amount={maxEpisodeCount} />
+								<EpisodesSkeletonRow amount={maxEpisodeCount || 10} />
 							) : seasonQuery.data.episodes.length > 0 ? (
-								Array.from({ length: maxEpisodeCount }).map((_, i) => {
+								Array.from({ length: maxEpisodeCount || 10 }).map((_, i) => {
 									const episode = seasonQuery.data.episodes[i];
 
 									const episodeVoteValue = (episode?.vote_average || 0) / 10;

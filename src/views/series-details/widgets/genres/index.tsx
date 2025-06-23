@@ -1,12 +1,14 @@
+import { cn } from '@/lib/utils';
 import GenreBadge from '../../components/genre-badge';
 
 interface Props {
 	genres: { name: string }[];
+	className?: string;
 }
 
-const Genres = ({ genres }: Props) => {
+const Genres = ({ genres, className }: Props) => {
 	return (
-		<div className="mb-5 flex gap-2">
+		<div className={cn('mb-5 flex gap-2', className)}>
 			{genres.map(({ name }, i) => (
 				<GenreBadge
 					key={name}

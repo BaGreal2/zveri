@@ -1,20 +1,36 @@
+import type { CSSProperties } from 'react';
 import StarEmptyIcon from '@/icons/star-empty.svg?react';
 import StarFillIcon from '@/icons/star-fill.svg?react';
 import TextFade from '@/components/ui/text-fade';
+import { cn } from '@/lib/utils';
 
 interface Props {
 	rating: number;
-	voteCount: number;
+	hideNumber?: boolean;
+	voteCount?: number;
+	className?: string;
+	style?: CSSProperties;
 }
 
-const Rating = ({ rating, voteCount }: Props) => {
+const Rating = ({
+	rating,
+	hideNumber = false,
+	voteCount,
+	className,
+	style
+}: Props) => {
 	const normalizedRating = Math.min(rating / 2, 5);
 
 	return (
-		<div className="fade-in-top flex items-center gap-3.5">
-			<TextFade className="text-[32px] leading-[32px] font-bold">
-				{rating.toFixed(1)}
-			</TextFade>
+		<div
+			className={cn('fade-in-top flex items-center gap-3.5', className)}
+			style={style}
+		>
+			{hideNumber ? null : (
+				<TextFade className="text-[32px] leading-[32px] font-bold">
+					{rating.toFixed(1)}
+				</TextFade>
+			)}
 			<div className="flex flex-col gap-1">
 				<span className="relative">
 					<span
@@ -33,9 +49,11 @@ const Rating = ({ rating, voteCount }: Props) => {
 						))}
 					</span>
 				</span>
-				<TextFade className="text-[13px] leading-[13px] font-semibold">
-					{voteCount.toLocaleString()}
-				</TextFade>
+				{voteCount ? (
+					<TextFade className="text-[13px] leading-[13px] font-semibold">
+						{voteCount.toLocaleString()}
+					</TextFade>
+				) : null}
 			</div>
 		</div>
 	);

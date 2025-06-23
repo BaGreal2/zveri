@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
 @import 'tailwindcss';
+@plugin "tailwindcss-animate";
 
 @theme {
 	--font-display: 'Sora', sans-serif;
@@ -118,7 +119,6 @@
 			visibility: hidden;
 		}
 	}
-
 	.animate-fade-out {
 		animation: fadeOut 3s forwards;
 	}

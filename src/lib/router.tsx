@@ -10,8 +10,14 @@ const RegisterPage = React.lazy(() => import('../views/auth/register'));
 const ProfilePage = React.lazy(() => import('../views/profile'));
 const HomePage = React.lazy(() => import('../views/home'));
 const SeriesDetailsPage = React.lazy(() => import('../views/series-details'));
-const SeriesDetailsSkeleton = React.lazy(
+const DiscoverPage = React.lazy(() => import('../views/discover'));
+const SeasonSelectPage = React.lazy(() => import('../views/season-select'));
+
+const SeriesDetailsPageSkeleton = React.lazy(
 	() => import('../views/series-details/widgets/skeleton')
+);
+const DiscoverPageSkeleton = React.lazy(
+	() => import('../views/discover/widgets/skeleton')
 );
 
 const router = createBrowserRouter([
@@ -58,8 +64,24 @@ const router = createBrowserRouter([
 			{
 				path: 'series/:seriesId',
 				Component: () => (
-					<React.Suspense fallback={<SeriesDetailsSkeleton />}>
+					<React.Suspense fallback={<SeriesDetailsPageSkeleton />}>
 						<PrivateRoute element={<SeriesDetailsPage />} />
+					</React.Suspense>
+				)
+			},
+			{
+				path: 'discover',
+				Component: () => (
+					<React.Suspense fallback={<DiscoverPageSkeleton />}>
+						<PrivateRoute element={<DiscoverPage />} />
+					</React.Suspense>
+				)
+			},
+			{
+				path: 'season-select',
+				Component: () => (
+					<React.Suspense fallback={<Loading />}>
+						<PrivateRoute element={<SeasonSelectPage />} />
 					</React.Suspense>
 				)
 			},
