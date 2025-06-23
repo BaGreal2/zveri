@@ -5,11 +5,13 @@ import type { SeasonsState } from './types';
 const useSeasonsStore = create<SeasonsState>()(
 	persist(
 		(set) => ({
-			currentSeasons: null,
-			setCurrentSeason: (season) => set({ currentSeasons: season })
+			currentSeason: null,
+			lastTimeSelected: null,
+			setCurrentSeason: (season) => set({ currentSeason: season }),
+			setLastTimeSelected: (time) => set({ lastTimeSelected: time })
 		}),
 		{
-			name: 'auth-storage',
+			name: 'seasons-storage',
 			storage: createJSONStorage(() => localStorage)
 		}
 	)

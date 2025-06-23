@@ -1,7 +1,24 @@
-import { NavLink } from 'react-router';
+import type { FC } from 'react';
+import { NavLink, useLocation } from 'react-router';
+import LogoAutumnIcon from '@/icons/logo-autumn.svg?react';
+import LogoSpringIcon from '@/icons/logo-spring.svg?react';
+import LogoSummerIcon from '@/icons/logo-summer.svg?react';
+import LogoWinterIcon from '@/icons/logo-winter.svg?react';
 import LogoIcon from '@/icons/logo.svg?react';
+import useSeasonsStore from '@/lib/store/seasons';
+import { cn } from '@/lib/utils';
+import type { Season } from '@/types/seasons';
 import TextFade from '../ui/text-fade';
 import SearchButton from './components/search-button';
+
+const seasonsLocations = ['/season-select', '/discover'];
+
+const logoMap: Record<Season, FC<React.SVGProps<SVGSVGElement>>> = {
+	autumn: LogoAutumnIcon,
+	spring: LogoSpringIcon,
+	summer: LogoSummerIcon,
+	winter: LogoWinterIcon
+};
 
 const links = [
 	{
@@ -21,12 +38,15 @@ const links = [
 		label: 'Reviews'
 	},
 	{
-		to: 'events',
-		label: 'Events'
+		to: '/news',
+		label: 'News'
 	}
 ];
 
 const Header = () => {
+	const { currentSeason } = useSeasonsStore();
+	const location = useLocation();
+
 	return (
 		<nav
 			className="fixed top-0 left-0 z-40 flex h-[100px] w-full items-center justify-center overflow-hidden border-b border-white/15 backdrop-blur-2xl"
@@ -37,7 +57,26 @@ const Header = () => {
 			<div className="relative z-10 mx-auto flex size-full max-w-[1440px] items-center justify-between px-12">
 				<div className="flex items-center gap-[30px]">
 					<NavLink to="/home">
-						<LogoIcon className="h-[46px] w-40" />
+						<div className="relative h-[46px] w-40">
+							{Object.entries(logoMap).map(([season, Icon]) => (
+								<Icon
+									key={season}
+									className={cn(
+										'absolute -top-[12px] left-0 h-[96px] w-40 transition-all duration-300',
+										currentSeason === season &&
+											seasonsLocations.includes(location.pathname)
+											? 'opacity-100'
+											: 'opacity-0'
+									)}
+								/>
+							))}
+							<LogoIcon
+								className={cn(
+									'absolute top-0 left-0 h-[46px] w-40 transition-all duration-300',
+									!currentSeason ? 'opacity-100' : 'opacity-0'
+								)}
+							/>
+						</div>
 					</NavLink>
 					<SearchButton />
 				</div>

@@ -3,15 +3,22 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import SectionTitle from '@/components/section-title';
+import useSeasonsStore from '@/lib/store/seasons';
 import HeroCarousel from './widgets/hero-carousel';
 import SeriesCategory from './widgets/series-category';
 
 const Discover = () => {
 	const navigate = useNavigate();
+	const { lastTimeSelected } = useSeasonsStore();
 	useEffect(() => {
 		document.title = 'Discover | Seasons';
-		// TODO: Add condition to check if user has selected a season today
-		navigate('/season-select');
+
+		if (
+			!lastTimeSelected ||
+			new Date(lastTimeSelected).getDate() !== new Date().getDate()
+		) {
+			navigate('/season-select');
+		}
 	}, []);
 
 	return (

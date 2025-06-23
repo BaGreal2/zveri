@@ -1,6 +1,8 @@
 import type { Season } from '@/types/seasons';
 
 export interface SeasonsState {
-	currentSeasons: Season | null;
+	currentSeason: Season | null;
 	setCurrentSeason: (season: Season | null) => void;
+	lastTimeSelected: string | null;
+	setLastTimeSelected: (time: string | null) => void;
 }

@@ -1,5 +1,7 @@
-import { NavLink } from 'react-router';
+import { useNavigate } from 'react-router';
 import TextFade from '@/components/ui/text-fade';
+import useSeasonsStore from '@/lib/store/seasons';
+import { cn } from '@/lib/utils';
 import type { Season } from '@/types/seasons';
 
 interface Props {
@@ -9,10 +11,24 @@ interface Props {
 }
 
 const Vibe = ({ imageSrc, label, value }: Props) => {
+	const navigate = useNavigate();
+	const { currentSeason, setLastTimeSelected, setCurrentSeason } =
+		useSeasonsStore();
+
+	const onVibeClick = () => {
+		setLastTimeSelected(new Date().toISOString());
+		navigate('/discover');
+	};
+
 	return (
-		<NavLink
-			to={`/discover?vibe=${value}`}
-			className="group relative h-full grow transition-all duration-200 ease-in hover:translate-y-[20px]"
+		<button
+			onClick={onVibeClick}
+			className={cn(
+				'group relative h-full grow cursor-pointer transition-all duration-200 ease-in hover:translate-y-[20px]',
+				currentSeason !== null && currentSeason !== value && 'opacity-20'
+			)}
+			onMouseEnter={() => setCurrentSeason(value)}
+			onMouseLeave={() => setCurrentSeason(null)}
 		>
 			<div className="size-full overflow-hidden rounded-[30px] border-2 border-white/15 backdrop-blur-md transition-all duration-200 ease-in hover:border-white/65">
 				<img
@@ -26,7 +42,7 @@ const Vibe = ({ imageSrc, label, value }: Props) => {
 					{label}
 				</TextFade>
 			</div>
-		</NavLink>
+		</button>
 	);
 };
 
