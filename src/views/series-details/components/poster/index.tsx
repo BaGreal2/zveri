@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import { FaPlay, FaRegStar } from 'react-icons/fa';
+import { FaPlay, FaRegStar, FaStar } from 'react-icons/fa';
+import { useFavorites } from '@/hooks/useFavorites';
 import { useQuery } from '@tanstack/react-query';
 import TrailerModal from '@/components/trailer-modal';
 import TextFade from '@/components/ui/text-fade';
@@ -29,6 +30,10 @@ const Poster = ({ seriesId, posterPath, status }: Props) => {
 		);
 	}, [trailerQuery.data]);
 
+	const { ids: favIds, toggle } = useFavorites();
+	const isFav = favIds ? favIds.includes(seriesId) : false;
+  console.log('favIds', favIds);
+
 	const openModal = () => {
 		if (!trailer) return;
 		setIsModalOpen(true);
@@ -40,7 +45,7 @@ const Poster = ({ seriesId, posterPath, status }: Props) => {
 
 	return (
 		<>
-			<div className="fade-in-top relative h-full w-[336px] shrink-0 overflow-hidden rounded-3xl">
+			<div className="fade-in-top relative mx-auto h-full w-[336px] shrink-0 overflow-hidden rounded-3xl">
 				{posterPath && (
 					<>
 						<img
@@ -60,8 +65,16 @@ const Poster = ({ seriesId, posterPath, status }: Props) => {
 							</TextFade>
 						</div>
 
-						<button className="absolute top-5 right-5 z-20 flex size-10 items-center justify-center rounded-full border border-white/10 bg-gradient-to-t from-black/70 to-black/30 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-black/50 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:backdrop-blur-md">
-							<FaRegStar className="size-4" />
+						<button
+							onClick={() => toggle.mutate(seriesId)}
+							disabled={toggle.isPending}
+							className="disabled:hover-100 absolute top-5 right-5 z-20 flex size-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-gradient-to-t from-black/70 to-black/30 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-black/50 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:backdrop-blur-md"
+						>
+							{isFav ? (
+								<FaStar className="size-4" />
+							) : (
+								<FaRegStar className="size-4" />
+							)}
 						</button>
 
 						{trailer && (

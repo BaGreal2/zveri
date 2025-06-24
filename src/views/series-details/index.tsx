@@ -57,7 +57,7 @@ const SeriesDetails = () => {
 			<PageBackground backdropPath={seriesQuery.data.backdrop_path} />
 
 			<div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-center rounded-md px-4 py-5 shadow-lg">
-				<div className="flex h-[510px] w-full items-end gap-16">
+				<div className="flex md:h-[510px] w-full flex-col items-end gap-16 md:flex-row">
 					<Poster
 						seriesId={seriesId}
 						posterPath={seriesQuery.data.poster_path}
@@ -73,7 +73,7 @@ const SeriesDetails = () => {
 							firstAirDate={seriesQuery.data.first_air_date}
 						/>
 
-						<div className="mb-10 flex gap-10">
+						<div className="mb-10 flex flex-wrap gap-10">
 							<Rating
 								rating={seriesQuery.data.vote_average}
 								voteCount={seriesQuery.data.vote_count}

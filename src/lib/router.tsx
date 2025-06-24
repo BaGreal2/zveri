@@ -19,6 +19,9 @@ const SeriesDetailsPageSkeleton = React.lazy(
 const DiscoverPageSkeleton = React.lazy(
 	() => import('../views/discover/widgets/skeleton')
 );
+const ProfilePageSkeleton = React.lazy(
+	() => import('../views/profile/widgets/skeleton')
+);
 
 const router = createBrowserRouter([
 	{
@@ -56,7 +59,7 @@ const router = createBrowserRouter([
 			{
 				path: 'profile',
 				Component: () => (
-					<React.Suspense fallback={<Loading />}>
+					<React.Suspense fallback={<ProfilePageSkeleton />}>
 						<PrivateRoute element={<ProfilePage />} />
 					</React.Suspense>
 				)

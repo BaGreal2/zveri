@@ -18,7 +18,7 @@ export const fetcher = async (url: string, customOptions?: RequestInit) => {
 
 	const res = await fetch(BACKEND_URL + url, options);
 
-	console.log('fetch', res);
+	// console.log('fetch', res);
 	if (!res.ok) {
 		throw new Error('Network response was not ok');
 	}
