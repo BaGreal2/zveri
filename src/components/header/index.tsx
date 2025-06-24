@@ -21,8 +21,8 @@ const links = [
 		label: 'Reviews'
 	},
 	{
-		to: 'events',
-		label: 'Events'
+		to: '/news',
+		label: 'News'
 	}
 ];
 
