@@ -61,6 +61,7 @@ export default function SeriesBanner({ series }: Props) {
 					<Title
 						name={series.name}
 						countryCode={series.origin_country[0]}
+            // @ts-expect-error THIS season type has first_air_date
 						firstAirDate={series.first_air_date}
 					/>
 					<TextFade className="max-w-[661px]">
