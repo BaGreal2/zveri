@@ -17,7 +17,7 @@ const VibeSelect = ({ className, style }: Props) => {
 	return (
 		<>
 			<div
-				className={cn('flex h-[512px] w-full gap-[10.5px]', className)}
+				className={cn('flex h-[450px] w-full gap-[32px]', className)}
 				style={style}
 			>
 				{Object.entries(vibePropertiesMap).map(
