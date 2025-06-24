@@ -6,14 +6,13 @@ import LogoSpringIcon from '@/icons/logo-spring.svg?react';
 import LogoSummerIcon from '@/icons/logo-summer.svg?react';
 import LogoWinterIcon from '@/icons/logo-winter.svg?react';
 import LogoIcon from '@/icons/logo.svg?react';
+import { pagesWithoutSearch, pagesWithSeasons } from '@/lib/config';
 import useSeasonsStore from '@/lib/store/seasons';
 import { cn } from '@/lib/utils';
 import type { Season } from '@/types/seasons';
 import TextFade from '../ui/text-fade';
 import SearchButton from './components/search-button';
 import SearchContent from './components/search-content';
-
-const seasonsLocations = ['/season-select', '/discover'];
 
 const logoMap: Record<Season, FC<React.SVGProps<SVGSVGElement>>> = {
 	autumn: LogoAutumnIcon,
@@ -53,7 +52,11 @@ const Header = () => {
 
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
-			if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+			if (
+				(event.metaKey || event.ctrlKey) &&
+				event.key.toLowerCase() === 'k' &&
+				!pagesWithoutSearch.includes(location.pathname)
+			) {
 				event.preventDefault();
 				setIsSearchOpen(true);
 			}
@@ -81,7 +84,7 @@ const Header = () => {
 										className={cn(
 											'absolute top-1/2 left-1/2 h-[114px] w-[180px] -translate-x-1/2 -translate-y-1/2 transition-all duration-300',
 											currentSeason === season &&
-												seasonsLocations.includes(location.pathname)
+												pagesWithSeasons.includes(location.pathname)
 												? 'opacity-100'
 												: 'opacity-0'
 										)}
@@ -91,7 +94,7 @@ const Header = () => {
 									className={cn(
 										'absolute top-1/2 left-1/2 h-[105px] w-40 -translate-x-1/2 -translate-y-1/2 transition-all duration-300',
 										!currentSeason ||
-											!seasonsLocations.includes(location.pathname)
+											!pagesWithSeasons.includes(location.pathname)
 											? 'opacity-100'
 											: 'opacity-0'
 									)}

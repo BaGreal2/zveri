@@ -30,7 +30,7 @@ const SearchContent = ({ isOpen, onClose }: Props) => {
 	const handleClose = () => {
 		setTerm('');
 		document.body.style.overflowY = 'auto';
-    document.body.style.overflowX = 'hidden';
+		document.body.style.overflowX = 'hidden';
 		onClose();
 	};
 
@@ -50,11 +50,16 @@ const SearchContent = ({ isOpen, onClose }: Props) => {
 
 	useEffect(() => {
 		const originalStyle = window.getComputedStyle(document.body).overflow;
-		document.body.style.overflow = 'hidden';
+		if (isOpen) {
+			document.body.style.overflow = 'hidden';
+		} else {
+			document.body.style.overflow = originalStyle;
+		}
+
 		return () => {
 			document.body.style.overflow = originalStyle;
 		};
-	}, []);
+	}, [isOpen]);
 
 	if (!isOpen) {
 		return null;
