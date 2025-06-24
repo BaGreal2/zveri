@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
+import getSeriesDetails from '@/queries/get-series-details';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import BackgroundAudio from '@/components/background-audio';
-import getSeriesDetails from './actions/get-series-details';
 import DetailBadge from './components/detail-badge';
 import Overview from './components/overview';
 import Poster from './components/poster';

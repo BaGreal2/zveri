@@ -10,15 +10,16 @@ export interface Series {
 	poster_path: string | null;
 	backdrop_path: string | null;
 	genre_ids: number[];
-	first_air_date: string;
-	last_air_date: string;
 	vote_average: number;
 	vote_count: number;
 	origin_country: string[];
+  popularity: number;
 }
 
 export interface SeriesDetails extends Series {
 	status: string;
+	first_air_date: string;
+	last_air_date: string;
 	number_of_seasons: number;
 	number_of_episodes: number;
 	seasons: Season[];
