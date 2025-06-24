@@ -29,6 +29,8 @@ const SearchContent = ({ isOpen, onClose }: Props) => {
 
 	const handleClose = () => {
 		setTerm('');
+		document.body.style.overflowY = 'auto';
+    document.body.style.overflowX = 'hidden';
 		onClose();
 	};
 
