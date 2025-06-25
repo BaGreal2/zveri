@@ -82,7 +82,7 @@ const Header = () => {
 									<Icon
 										key={season}
 										className={cn(
-											'absolute top-1/2 left-1/2 h-[114px] w-[180px] -translate-x-1/2 -translate-y-1/2 transition-all duration-300',
+											'absolute top-1/2 left-1/2 h-[114px] mt-1 w-[180px] -translate-x-1/2 -translate-y-1/2 transition-all duration-300',
 											currentSeason === season &&
 												pagesWithSeasons.includes(location.pathname)
 												? 'opacity-100'
@@ -92,7 +92,7 @@ const Header = () => {
 								))}
 								<LogoIcon
 									className={cn(
-										'absolute top-1/2 left-1/2 h-[105px] w-40 -translate-x-1/2 -translate-y-1/2 transition-all duration-300',
+										'absolute top-1/2 left-1/2 h-[105px] mt-1 w-40 -translate-x-1/2 -translate-y-1/2 transition-all duration-300',
 										!currentSeason ||
 											!pagesWithSeasons.includes(location.pathname)
 											? 'opacity-100'
