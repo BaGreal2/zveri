@@ -61,13 +61,13 @@ export default function FavoriteCarousel({ ids }: Props) {
 						: posters!.map(({ id, name, poster }) => (
 								<CarouselItem
 									key={id}
-									className="ml-[18px] basis-64 transition-all duration-300"
+									className="ml-[18px] shrink-0 basis-64 pl-0 transition-all duration-300"
 								>
 									<NavLink to={`/series/${id}`} key={id}>
 										<img
 											src={poster ?? ''}
 											alt={name}
-											className="h-96 w-64 rounded-2xl object-cover"
+											className="h-96 !w-64 shrink-0 rounded-2xl object-cover"
 										/>
 									</NavLink>
 								</CarouselItem>

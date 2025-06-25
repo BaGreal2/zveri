@@ -40,7 +40,7 @@ const ProfileSkeleton = () => (
 
 			<div className="flex flex-col gap-2">
 				<Skeleton className="h-4 w-24 rounded-xs" />
-				<div className="flex gap-2">
+				<div className="flex gap-[18px]">
 					{Array.from({ length: 4 }).map((_, i) => (
 						<Skeleton key={i} className="h-96 w-64 rounded-2xl" />
 					))}
