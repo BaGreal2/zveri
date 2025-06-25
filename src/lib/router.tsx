@@ -36,7 +36,7 @@ const router = createBrowserRouter([
 				path: 'home',
 				Component: () => (
 					<React.Suspense fallback={<Loading />}>
-						<PrivateRoute element={<HomePage />} />
+						<HomePage />
 					</React.Suspense>
 				)
 			},
