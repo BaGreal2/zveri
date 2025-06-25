@@ -16,14 +16,20 @@ const Home = () => {
 	return (
 		<div className="mx-auto w-full max-w-[1440px] pt-[186px]">
 			<div className="relative z-10 mx-auto flex size-[693px] flex-col items-center pt-[204px]">
-				<TextFade className="relative z-10 mb-2.5 text-5xl font-bold text-nowrap">
+				<TextFade className="fade-in-top relative z-10 mb-2.5 text-5xl font-bold text-nowrap">
 					Search by vibe, not by genre
 				</TextFade>
-				<TextFade className="relative z-10 mb-10 max-w-[460px] text-center text-lg leading-[18px]">
+				<TextFade
+					className="fade-in-top relative z-10 mb-10 max-w-[460px] text-center text-lg leading-[18px] opacity-0"
+					style={{ animationDelay: '150ms' }}
+				>
 					Choose a vibe of the series, not a category. From cozy romance to dark
 					mysteries — pick your mood and we’ll handle the rest.
 				</TextFade>
-				<div className="relative z-10 flex gap-[14px]">
+				<div
+					className="fade-in-top relative z-10 flex gap-[14px] opacity-0"
+					style={{ animationDelay: '300ms' }}
+				>
 					<NavLink
 						to="/discover"
 						className="flex h-14 cursor-pointer items-center justify-center gap-4 rounded-[20px] p-px font-medium text-white/80 backdrop-blur-3xl transition-all duration-300 ease-in-out hover:scale-105"
@@ -43,7 +49,7 @@ const Home = () => {
 						More About
 					</button>
 				</div>
-				<div className="absolute top-0 left-1/2 z-0 mx-auto size-[614px] -translate-x-1/2">
+				<div className="fade-in-top absolute top-0 left-1/2 z-0 mx-auto size-[614px] -translate-x-1/2">
 					<img
 						src="/images/hero-circle.png"
 						className="size-full object-contain"
@@ -53,7 +59,8 @@ const Home = () => {
 			</div>
 			<div
 				ref={aboutRef}
-				className="relative mx-auto mb-[87px] flex w-full max-w-[1000px] scroll-mt-40 flex-col gap-[57px]"
+				className="fade-in-top relative mx-auto mb-[87px] flex w-full max-w-[1000px] scroll-mt-40 flex-col gap-[57px] opacity-0"
+				style={{ animationDelay: '450ms' }}
 			>
 				<AboutSign
 					title="Search for Series"
