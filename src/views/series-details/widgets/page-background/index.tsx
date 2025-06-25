@@ -28,7 +28,7 @@ const PageBackground = ({ backdropPath }: Props) => {
 					<>
 						<img
 							src={getTMDBImageUrl(backdropPath, 'w300')}
-							className="absolute top-0 left-0 size-full scale-105 object-cover blur-lg transition-opacity duration-500"
+							className="absolute top-0 left-0 size-full scale-105 object-cover blur-xs transition-opacity duration-500"
 							aria-hidden="true"
 						/>
 						<img

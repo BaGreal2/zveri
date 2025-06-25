@@ -1,17 +1,11 @@
 import { useMemo, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { FaPlay, FaRegStar } from 'react-icons/fa';
+import { FaPlay, FaRegStar, FaStar } from 'react-icons/fa';
+import { useFavorites } from '@/hooks/useFavorites';
 import { useQuery } from '@tanstack/react-query';
+import TrailerModal from '@/components/trailer-modal';
 import TextFade from '@/components/ui/text-fade';
-import { modalRoot } from '@/lib/roots';
-import { cn, getTMDBImageUrl } from '@/lib/utils';
+import { getTMDBImageUrl } from '@/lib/utils';
 import getSeriesTrailer from '../../actions/get-series-trailer';
-
-interface Trailer {
-	key: string;
-	site: string;
-	type: string;
-}
 
 interface Props {
 	seriesId: string;
@@ -26,33 +20,32 @@ const Poster = ({ seriesId, posterPath, status }: Props) => {
 	});
 
 	const [highResLoaded, setHighResLoaded] = useState(false);
-	const [showModal, setShowModal] = useState(false);
-	const [isOpen, setIsOpen] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const trailer = useMemo(() => {
 		const trailers = trailerQuery.data?.results ?? [];
 
 		return (
-			trailers.find(
-				(t: Trailer) => t.site === 'YouTube' && t.type === 'Trailer'
-			) ?? null
+			trailers.find((t) => t.site === 'YouTube' && t.type === 'Trailer') ?? null
 		);
 	}, [trailerQuery.data]);
 
+	const { ids: favIds, toggle } = useFavorites();
+	const isFav = favIds ? favIds.includes(Number(seriesId)) : false;
+	console.log('favIds', favIds);
+
 	const openModal = () => {
 		if (!trailer) return;
-		setShowModal(true);
-		requestAnimationFrame(() => setIsOpen(true));
+		setIsModalOpen(true);
 	};
 
 	const closeModal = () => {
-		setIsOpen(false);
-		setTimeout(() => setShowModal(false), 300);
+		setIsModalOpen(false);
 	};
 
 	return (
 		<>
-			<div className="fade-in-top relative h-full w-[336px] shrink-0 overflow-hidden rounded-3xl">
+			<div className="fade-in-top relative mx-auto h-full w-[336px] shrink-0 overflow-hidden rounded-3xl">
 				{posterPath && (
 					<>
 						<img
@@ -72,8 +65,16 @@ const Poster = ({ seriesId, posterPath, status }: Props) => {
 							</TextFade>
 						</div>
 
-						<button className="absolute top-5 right-5 z-20 flex size-10 items-center justify-center rounded-full border border-white/10 bg-gradient-to-t from-black/70 to-black/30 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-black/50 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:backdrop-blur-md">
-							<FaRegStar className="size-4" />
+						<button
+							onClick={() => toggle.mutate(seriesId)}
+							disabled={toggle.isPending}
+							className="disabled:hover-100 absolute top-5 right-5 z-20 flex size-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-gradient-to-t from-black/70 to-black/30 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-black/50 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:backdrop-blur-md"
+						>
+							{isFav ? (
+								<FaStar className="size-4" />
+							) : (
+								<FaRegStar className="size-4" />
+							)}
 						</button>
 
 						{trailer && (
@@ -98,35 +99,11 @@ const Poster = ({ seriesId, posterPath, status }: Props) => {
 				)}
 			</div>
 
-			{showModal &&
-				modalRoot &&
-				createPortal(
-					<div className="fixed inset-0 z-50 flex items-center justify-center">
-						<button
-							onClick={closeModal}
-							className={cn(
-								'absolute inset-0 bg-black/70 backdrop-blur-md transition-opacity duration-300',
-								isOpen ? 'opacity-100' : 'opacity-0'
-							)}
-						/>
-
-						<div
-							className={cn(
-								'relative z-10 aspect-video w-[min(90%,1300px)] overflow-hidden rounded-3xl shadow-[0_0_20px_rgba(0,0,0,0.6)] transition-all duration-300',
-								isOpen ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
-							)}
-						>
-							<iframe
-								src={`https://www.youtube.com/embed/${trailer?.key}?autoplay=1&controls=1&rel=0`}
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-								allowFullScreen
-								className="h-full w-full"
-								title="Trailer"
-							/>
-						</div>
-					</div>,
-					modalRoot
-				)}
+			<TrailerModal
+				trailerKey={trailer?.key ?? ''}
+				isOpen={isModalOpen}
+				onClose={closeModal}
+			/>
 		</>
 	);
 };

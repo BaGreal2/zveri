@@ -19,6 +19,8 @@ interface Props {
 	numberOfEpisodes: number;
 }
 
+const wheelPlugin = WheelGesturesPlugin();
+
 const EpisodesShots = ({ seriesId, numberOfEpisodes }: Props) => {
 	const episodesQueries = useEpisodes(
 		seriesId,
@@ -96,7 +98,7 @@ const EpisodesShots = ({ seriesId, numberOfEpisodes }: Props) => {
 			<Carousel
 				opts={{ skipSnaps: true }}
 				setApi={setCarouselApi}
-				plugins={[WheelGesturesPlugin()]}
+				plugins={[wheelPlugin]}
 			>
 				<CarouselContent className="mr-7 -ml-7 pt-[30px]">
 					{episodesQueries.map((q, i) => (

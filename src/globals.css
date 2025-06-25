@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
 @import 'tailwindcss';
+@plugin "tailwindcss-animate";
 
 @theme {
 	--font-display: 'Sora', sans-serif;
@@ -8,6 +9,19 @@
 }
 
 @layer utilities {
+	@keyframes fade-in {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	.fade-in {
+		animation: fade-in 0.5s ease-out forwards;
+	}
+
 	@keyframes fade-in-top {
 		0% {
 			opacity: 0;
@@ -118,7 +132,6 @@
 			visibility: hidden;
 		}
 	}
-
 	.animate-fade-out {
 		animation: fadeOut 3s forwards;
 	}
@@ -144,4 +157,29 @@ body {
 
 	mask-image: linear-gradient(to top, black 70%, transparent);
 	-webkit-mask-image: linear-gradient(to top, black 70%, transparent);
+}
+
+.ps__rail-y {
+	width: 2px !important;
+	right: 2px !important;
+	background: transparent !important;
+	opacity: 1 !important;
+}
+.ps__thumb-y {
+	width: 100% !important;
+	background: #fff !important;
+	border-radius: 9999px !important;
+	opacity: 1 !important;
+}
+
+.ps__rail-x {
+	height: 3px !important;
+	background: transparent !important;
+	opacity: 1 !important;
+}
+.ps__thumb-x {
+	height: 100% !important;
+	background: #fff !important;
+	border-radius: 9999px !important;
+	opacity: 1 !important;
 }

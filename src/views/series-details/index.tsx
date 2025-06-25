@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
+import getSeriesDetails from '@/queries/get-series-details';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import BackgroundAudio from '@/components/background-audio';
-import getSeriesDetails from './actions/get-series-details';
 import DetailBadge from './components/detail-badge';
 import Overview from './components/overview';
 import Poster from './components/poster';
@@ -56,8 +56,8 @@ const SeriesDetails = () => {
 			)}
 			<PageBackground backdropPath={seriesQuery.data.backdrop_path} />
 
-			<div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-center rounded-md px-4 py-5 shadow-lg">
-				<div className="flex h-[510px] w-full items-end gap-16">
+			<div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-center rounded-md px-4 py-5 pb-20 shadow-lg">
+				<div className="flex w-full flex-col items-end gap-16 md:h-[510px] md:flex-row">
 					<Poster
 						seriesId={seriesId}
 						posterPath={seriesQuery.data.poster_path}
@@ -73,7 +73,7 @@ const SeriesDetails = () => {
 							firstAirDate={seriesQuery.data.first_air_date}
 						/>
 
-						<div className="mb-10 flex gap-10">
+						<div className="mb-10 flex flex-wrap gap-10">
 							<Rating
 								rating={seriesQuery.data.vote_average}
 								voteCount={seriesQuery.data.vote_count}
@@ -107,7 +107,6 @@ const SeriesDetails = () => {
 					seriesId={seriesId}
 					numberOfEpisodes={
 						seriesQuery.data.seasons.find(
-							// @ts-expect-error No type for season
 							(season) => season.season_number === 1
 						)?.episode_count || 0
 					}

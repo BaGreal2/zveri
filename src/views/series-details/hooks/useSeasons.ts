@@ -6,7 +6,8 @@ const useSeasons = (seriesId: string, seasons: number) => {
 		queries: Array.from({ length: seasons }, (_, i) => ({
 			queryKey: ['series-episode', seriesId, i + 1],
 			queryFn: () => getSeasonDetails(seriesId, i + 1),
-			enabled: !!seriesId
+			enabled: !!seriesId,
+			refetchOnWindowFocus: false
 		}))
 	});
 };
