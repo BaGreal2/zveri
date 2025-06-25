@@ -2,7 +2,7 @@ import getSeriesDetails from '@/queries/get-series-details';
 import { useQuery } from '@tanstack/react-query';
 import { getTMDBImageUrl } from '@/lib/utils';
 
-export function useFavoritePosters(ids: number[]) {
+export function useFavoritePosters(ids: string[]) {
 	return useQuery({
 		queryKey: ['favorite-posters', ids],
 		enabled: ids.length > 0,
@@ -10,7 +10,7 @@ export function useFavoritePosters(ids: number[]) {
 			const results = await Promise.all(
 				ids.map(async (id) => {
 					try {
-						const d = await getSeriesDetails(id.toString());
+						const d = await getSeriesDetails(id);
 						return {
 							id,
 							name: d.name,

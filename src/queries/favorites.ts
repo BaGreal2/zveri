@@ -12,7 +12,7 @@ export const removeFavorite = async (id: string) => {
 	return res;
 };
 
-export const getFavorites = async (): Promise<{ favorites: number[] }> => {
+export const getFavorites = async (): Promise<{ favorites: string[] }> => {
 	const res = await fetcher('/favorites/');
 
 	return res;

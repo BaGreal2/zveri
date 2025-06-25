@@ -31,7 +31,7 @@ const Poster = ({ seriesId, posterPath, status }: Props) => {
 	}, [trailerQuery.data]);
 
 	const { ids: favIds, toggle } = useFavorites();
-	const isFav = favIds ? favIds.includes(Number(seriesId)) : false;
+	const isFav = favIds ? favIds.includes(seriesId) : false;
 	console.log('favIds', favIds);
 
 	const openModal = () => {

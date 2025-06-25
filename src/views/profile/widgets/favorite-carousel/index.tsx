@@ -14,7 +14,7 @@ import TextFade from '@/components/ui/text-fade';
 const wheelPlugin = WheelGesturesPlugin();
 
 interface Props {
-	ids: number[];
+	ids: string[];
 }
 
 export default function FavoriteCarousel({ ids }: Props) {

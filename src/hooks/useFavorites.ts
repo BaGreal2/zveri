@@ -12,14 +12,13 @@ export function useFavorites() {
 
 	const toggle = useMutation({
 		mutationFn: (id: string) =>
-			ids.includes(Number(id)) ? removeFavorite(id) : addFavorite(id),
+			ids.includes(id) ? removeFavorite(id) : addFavorite(id),
 
 		onMutate: async (id: string) => {
 			await qc.cancelQueries({ queryKey: ['user-favorites'] });
 			const previous = ids;
-			const next = ids.includes(Number(id))
-				? // @ts-expect-error no type
-					ids.filter((x) => x !== id)
+			const next = ids.includes(id)
+				? ids.filter((x) => x !== id)
 				: [...ids, id];
 			qc.setQueryData(['user-favorites'], next);
 			return { previous };
