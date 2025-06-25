@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 
 type Props<T> = {
 	value: T;
+	fallbackValue?: T;
 	onSave: (val: T) => void | Promise<void>;
 	as?: 'input' | 'textarea';
 	className?: string;
@@ -9,6 +10,7 @@ type Props<T> = {
 
 export default function useEditableField<T extends string>({
 	value,
+	fallbackValue,
 	onSave,
 	as = 'input',
 	className = ''
@@ -62,7 +64,7 @@ export default function useEditableField<T extends string>({
 					/>
 				)
 			) : (
-				<span onClick={() => setEditing(true)}>{value}</span>
+				<span onClick={() => setEditing(true)}>{value ?? fallbackValue}</span>
 			),
 		[editing, as, className, draft, value]
 	);

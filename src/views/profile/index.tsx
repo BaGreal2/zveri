@@ -40,7 +40,8 @@ const Profile = () => {
 	});
 
 	const bioEdit = useEditableField({
-		value: user?.bio ?? '',
+		value: user?.bio,
+		fallbackValue: 'Unfortunately we don’t know anything about you yet',
 		as: 'textarea',
 		onSave: (val) => handlePartialSave({ bio: val || null }),
 		className:
@@ -97,7 +98,7 @@ const Profile = () => {
 
 					<div className="flex flex-col py-2.5">
 						<TextFade className="text-[32px] font-bold">
-							{usernameEdit.field ?? ''}
+							{usernameEdit.field}
 						</TextFade>
 						<span className="-mt-1 mb-5 text-sm font-semibold text-white/65">
 							With <span className="font-extrabold">seasons</span> since{' '}
@@ -111,11 +112,7 @@ const Profile = () => {
 							<span className="bg-gradient-to-t from-[#71C1FF] to-[#A2D8FF] to-70% bg-clip-text font-bold text-transparent capitalize">
 								About Me
 							</span>
-							<TextFade className="-mt-1">
-								{user?.bio || bioEdit.dirty || bioEdit.editing
-									? bioEdit.field
-									: `Unfortunately we don’t know anything about ${user?.username} yet`}
-							</TextFade>
+							<TextFade className="-mt-1">{bioEdit.field}</TextFade>
 						</div>
 					</div>
 				</div>
