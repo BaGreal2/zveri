@@ -56,8 +56,8 @@ const SeriesDetails = () => {
 			)}
 			<PageBackground backdropPath={seriesQuery.data.backdrop_path} />
 
-			<div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-center rounded-md px-4 py-5 shadow-lg">
-				<div className="flex md:h-[510px] w-full flex-col items-end gap-16 md:flex-row">
+			<div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-center rounded-md px-4 py-5 pb-20 shadow-lg">
+				<div className="flex w-full flex-col items-end gap-16 md:h-[510px] md:flex-row">
 					<Poster
 						seriesId={seriesId}
 						posterPath={seriesQuery.data.poster_path}

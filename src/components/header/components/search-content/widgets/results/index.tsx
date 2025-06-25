@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import 'react-perfect-scrollbar/dist/css/styles.css';
 import { useNavigate } from 'react-router';
 import TextFade from '@/components/ui/text-fade';
 import type { Series } from '@/types/tmdb';

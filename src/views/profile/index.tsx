@@ -131,6 +131,7 @@ const Profile = () => {
 					</div>
 					<div className="flex gap-2">
 						{user?.favorite_genres?.length ? (
+							// @ts-expect-error no type
 							user?.favorite_genres.map((genre) => (
 								<span
 									key={genre.id}

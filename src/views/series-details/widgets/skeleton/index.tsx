@@ -43,31 +43,31 @@ const SeriesDetailsSkeleton = () => (
 				))}
 			</div>
 
-			<div className="mt-[35px]">
-				<div className="flex flex-col gap-1">
-					<div className="flex w-full items-center gap-2">
-						<div className="h-10 w-20 shrink-0" />
-						<div className="flex h-10 pb-0.5 items-end gap-1">
-							<Skeleton className="h-[14px] w-[435px] rounded-xs" />
+			<div className="mt-[35px] max-w-full rounded-[34px] border border-white/15 bg-gradient-to-t from-white/10 to-white/5 p-10 backdrop-blur-md">
+				<div className="flex min-w-[720px] flex-col gap-2 overflow-hidden">
+					{/* episode-numbers row */}
+					<div className="flex h-10 items-center gap-2.5">
+						<div className="w-[90px] shrink-0">
+							<Skeleton className="h-[15px] w-[70px] rounded-xs" />
+						</div>
+						<div className="flex gap-2">
+							{Array.from({ length: 20 }).map((_, i) => (
+								<Skeleton key={i} className="h-[15px] w-14 rounded-xs" />
+							))}
 						</div>
 					</div>
 
-					<div className="flex items-center gap-2">
-						<div className="flex h-10 w-20 items-center">
-							<Skeleton className="h-[14px] w-[70px] rounded-xs" />
+					{/* a few season rows */}
+					{Array.from({ length: 3 }).map((_, i) => (
+						<div key={i} className="flex items-center gap-2.5">
+							<div className="flex h-10 w-[90px] shrink-0 items-center">
+								<Skeleton className="h-[15px] w-[70px] rounded-xs" />
+							</div>
+							<div className="flex gap-2">
+								<EpisodesSkeletonRow amount={20} />
+							</div>
 						</div>
-						<div className="flex gap-1">
-							<EpisodesSkeletonRow amount={10} />
-						</div>
-					</div>
-					<div className="flex items-center gap-2">
-						<div className="flex h-10 w-20 items-center">
-							<Skeleton className="h-[14px] w-[70px] rounded-xs" />
-						</div>
-						<div className="flex gap-1">
-							<EpisodesSkeletonRow amount={10} />
-						</div>
-					</div>
+					))}
 				</div>
 			</div>
 		</div>
